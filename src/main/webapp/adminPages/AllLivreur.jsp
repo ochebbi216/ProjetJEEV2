@@ -78,7 +78,7 @@
         <div class="content-wrapper">
         <h1 class="header">List of  Delivery Person</h1>
         <a href="/projetjsp1/AddLivreur.jsp" class="btn btn-success"> <i class="fas fa-add"></i> Add New Livreur</a>
-        <br> <br>
+       
         <p>Show Only Available Delivery Person:</p>
         <!-- Form to filter Livreurs based on availability -->
 		<form class="filter-form" action="livreur" method="get">

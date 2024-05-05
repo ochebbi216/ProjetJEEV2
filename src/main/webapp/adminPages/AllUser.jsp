@@ -95,7 +95,7 @@
                         <td><c:out value="${user.nom}"/></td>
                         <td><c:out value="${user.prenom}"/></td>
                         <td>
-                            <a href="user?action=edit&id=${user.id}" class="btn " style="color:blue;"><i class="fas fa-edit"></i> </a>
+                            <a href="User?action=edit&id=${user.id}" class="btn " style="color:blue;"><i class="fas fa-edit"></i> </a>
                             <button onclick="deleteUser(${user.id});" class="btn " style="color:red;"><i class="fas fa-trash-alt"></i> </button>
                         </td>
                     </tr>
@@ -119,7 +119,7 @@
                 var form = document.createElement('form');
                 document.body.appendChild(form);
                 form.method = 'post';
-                form.action = 'user';
+                form.action = 'User';
 
                 var actionInput = document.createElement('input');
                 actionInput.type = 'hidden';

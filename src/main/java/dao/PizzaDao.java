@@ -66,7 +66,7 @@ public class PizzaDao {
             e.printStackTrace();
             throw new RuntimeException("Failed to delete pizza with ID: " + pizzaId, e);
         } finally {
-        	session.close();
+        session.close();
         }
     }
 
@@ -78,4 +78,24 @@ public class PizzaDao {
             throw new RuntimeException("Failed to fetch all pizzas", e);
         }
     }
+    public List<String> findAllCategories() {
+        try (Session session = openSession()) {
+            return session.createQuery("SELECT DISTINCT p.categorie FROM Pizza p", String.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch pizza categories", e);
+        }
+    }
+
+    public List<Pizza> findByCategory(String category) {
+        try (Session session = openSession()) {
+            return session.createQuery("FROM Pizza WHERE categorie = :category", Pizza.class)
+                          .setParameter("category", category)
+                          .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch pizzas by category: " + category, e);
+        }
+    }
+
 }

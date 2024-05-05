@@ -1,3 +1,24 @@
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("adminEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
+
+    // Redirect to the dashboard if already authenticated
+    if (isAuthenticated) {
+        response.sendRedirect("../dashboard"); // Update this with the path to your dashboard page
+        return; // Stop further execution of JSP to ensure redirection happens immediately
+    }
+
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +49,7 @@
                         <i class="zmdi zmdi-email"></i>
                     </div>
                     <div class="form-wrapper">
-                        <input type="password" placeholder="Password" class="form-control" name ="motDePasse">
+                        <input type="password" placeholder="Password" class="form-control" name="motDePasse">
                         <i class="zmdi zmdi-lock"></i>
                     </div>
 

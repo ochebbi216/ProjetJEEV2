@@ -12,9 +12,9 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
+          <li><a href="userPages/Home.jsp">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a class="nav-link" href="Menu.jsp">Menu</a></li>
+          <li><a class="nav-link" href="../pizza?action=menu">Menu</a></li>
           <li><a href="#events">Delivry</a></li>
           <li><a href="#chefs">Chefs</a></li>
          

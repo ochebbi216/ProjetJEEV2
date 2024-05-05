@@ -6,7 +6,9 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/pizza")
 public class PizzaController extends HttpServlet {
@@ -28,13 +30,28 @@ public class PizzaController extends HttpServlet {
             request.setAttribute("pizza", pizza);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DetailPizza.jsp");
             dispatcher.forward(request, response);
-        }else {
+        }
+        if(action != null && action.equals("menu")) {
+            
+            request.setAttribute("classicPizzas", pizzaDao.findByCategory("Classic"));
+            request.setAttribute("meatLoversPizzas", pizzaDao.findByCategory("Meat Lovers"));
+            request.setAttribute("vegetarianPizzas", pizzaDao.findByCategory("Vegetarian"));
+            request.setAttribute("gourmetPizzas", pizzaDao.findByCategory("Gourmet"));
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/Menu.jsp");
+            dispatcher.forward(request, response);
+        }
+
+        else {
             List<Pizza> pizzas = pizzaDao.findAll();
             request.setAttribute("pizzas", pizzas);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/AllPizza.jsp");
             dispatcher.forward(request, response);
         }
-    }
+
+        }
+
+   
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,3 +115,4 @@ public class PizzaController extends HttpServlet {
         }
     }
 }
+
