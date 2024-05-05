@@ -20,18 +20,18 @@ public class ChefController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Chef Chef = chefDao.find(id);
             request.setAttribute("Chef", Chef);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/EditChef.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/EditChef.jsp");
             dispatcher.forward(request, response);
         }if(action != null && action.equals("detail")) {
             int id = Integer.parseInt(request.getParameter("id"));
             Chef Chef = chefDao.find(id);
             request.setAttribute("Chef", Chef);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/DetailChef.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DetailChef.jsp");
             dispatcher.forward(request, response);
         }else {
             List<Chef> Chefs = chefDao.findAll();
             request.setAttribute("Chefs", Chefs);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/AllChef.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/AllChef.jsp");
             dispatcher.forward(request, response);
         }
     }

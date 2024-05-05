@@ -69,4 +69,44 @@
     <servlet-name>PanierController</servlet-name>
     <url-pattern>/PanierController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChefController1</display-name>
+    <servlet-name>ChefController1</servlet-name>
+    <servlet-class>controller.ChefController1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChefController1</servlet-name>
+    <url-pattern>/ChefController1</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DashboardController</display-name>
+    <servlet-name>DashboardController</servlet-name>
+    <servlet-class>controller.DashboardController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DashboardController</servlet-name>
+    <url-pattern>/DashboardController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CommandeController</display-name>
+    <servlet-name>CommandeController</servlet-name>
+    <servlet-class>controller.CommandeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommandeController</servlet-name>
+    <url-pattern>/CommandeController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthGuard</display-name>
+    <servlet-name>AuthGuard</servlet-name>
+    <servlet-class>controller.AuthGuard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthGuard</servlet-name>
+    <url-pattern>/AuthGuard</url-pattern>
+  </servlet-mapping>
 </web-app>

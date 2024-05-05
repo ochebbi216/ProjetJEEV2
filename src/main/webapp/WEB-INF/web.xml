@@ -99,4 +99,14 @@
     <servlet-name>CommandeController</servlet-name>
     <url-pattern>/CommandeController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthGuard</display-name>
+    <servlet-name>AuthGuard</servlet-name>
+    <servlet-class>controller.AuthGuard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthGuard</servlet-name>
+    <url-pattern>/AuthGuard</url-pattern>
+  </servlet-mapping>
 </web-app>

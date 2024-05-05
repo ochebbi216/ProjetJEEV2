@@ -1,4 +1,4 @@
 controller\inscriptionController.class
 controller\Auth.class
-util\Hibernate.class
 model\User.class
+util\Hibernate.class

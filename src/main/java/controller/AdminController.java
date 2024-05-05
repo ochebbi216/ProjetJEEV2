@@ -6,7 +6,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 @WebServlet("/admin")
@@ -21,18 +20,23 @@ public class AdminController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Admin Admin = AdminDao.find(id);
             request.setAttribute("Admin", Admin);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/EditAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminPages//EditAdmin.jsp");
             dispatcher.forward(request, response);
         }if(action != null && action.equals("detail")) {
             int id = Integer.parseInt(request.getParameter("id"));
             Admin Admin = AdminDao.find(id);
             request.setAttribute("Admin", Admin);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/DetailAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminPages//DetailAdmin.jsp");
             dispatcher.forward(request, response);
-        }else {
+            
+        }else if(action != null && action.equals("logout")) {
+            logoutAdmin(request, response);
+        }
+        
+        else {
             List<Admin> Admins = AdminDao.findAll();
             request.setAttribute("Admins", Admins);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/AllAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminPages//AllAdmin.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -119,6 +123,8 @@ public class AdminController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Admin not found");
         }
     }
+    
+    
     private Cookie getCookie(HttpServletRequest request, String cookieName) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -129,6 +135,34 @@ public class AdminController extends HttpServlet {
             }
         }
         return null;
+    }
+    private void logoutAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Invalidate the session if exists
+        HttpSession session = request.getSession(false); // Retrieve the existing session if it exists, do not create a new one
+        if (session != null) {
+            session.invalidate(); // Invalidate the session to remove any session data
+        }
+
+        // Clear cookies related to the user login
+        clearCookie(request, response, "adminEmail");
+        clearCookie(request, response, "adminName");
+
+        // Redirect to login page
+        response.sendRedirect("AdminPages/AddAdmin.jsp");
+    }
+
+    private void clearCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    cookie.setValue(""); // Set the value to empty
+                    cookie.setPath("/"); // Ensure you set the path exactly same as it was set during creation
+                    cookie.setMaxAge(0); // Set the maximum age to 0 to delete the cookie
+                    response.addCookie(cookie); // Add the modified cookie to the response to effectively delete it from the client
+                }
+            }
+        }
     }
 
     private void deleteAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {

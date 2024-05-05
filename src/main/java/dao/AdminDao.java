@@ -35,6 +35,18 @@ public class AdminDao {
 
 	}
 	
+	public boolean authenticateByEmail(String email) {
+	    try (Session session = openSession()) {
+	        String hql = "SELECT count(*) FROM Admin WHERE email = :email";
+	        Query<Long> query = session.createQuery(hql, Long.class);
+	        query.setParameter("email", email);
+	        return query.uniqueResult() > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 	public Admin authenticate(String email, String motDePasse) {
         try (Session session = openSession()) {
             String hql = "FROM Admin WHERE email = :email AND motDePasse = :motDePasse";
