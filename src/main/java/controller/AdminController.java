@@ -20,13 +20,13 @@ public class AdminController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Admin Admin = AdminDao.find(id);
             request.setAttribute("Admin", Admin);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminPages//EditAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminPages/EditAdmin.jsp");
             dispatcher.forward(request, response);
         }if(action != null && action.equals("detail")) {
             int id = Integer.parseInt(request.getParameter("id"));
             Admin Admin = AdminDao.find(id);
             request.setAttribute("Admin", Admin);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminPages//DetailAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminPages/DetailAdmin.jsp");
             dispatcher.forward(request, response);
             
         }else if(action != null && action.equals("logout")) {
@@ -36,7 +36,7 @@ public class AdminController extends HttpServlet {
         else {
             List<Admin> Admins = AdminDao.findAll();
             request.setAttribute("Admins", Admins);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminPages//AllAdmin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminPages/AllAdmin.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -148,7 +148,7 @@ public class AdminController extends HttpServlet {
         clearCookie(request, response, "adminName");
 
         // Redirect to login page
-        response.sendRedirect("AdminPages/AddAdmin.jsp");
+        response.sendRedirect("adminPages/AddAdmin.jsp");
     }
 
     private void clearCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {

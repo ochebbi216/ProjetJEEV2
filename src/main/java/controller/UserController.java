@@ -20,18 +20,18 @@ public class UserController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             User User = UserDao.find(id);
             request.setAttribute("User", User);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/EditUser.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/EditUser.jsp");
             dispatcher.forward(request, response);
         }if(action != null && action.equals("detail")) {
             int id = Integer.parseInt(request.getParameter("id"));
             User User = UserDao.find(id);
             request.setAttribute("User", User);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/DetailUser.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DetailUser.jsp");
             dispatcher.forward(request, response);
         }else {
             List<User> Users = UserDao.findAll();
             request.setAttribute("Users", Users);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/AllUser.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/AllUser.jsp");
             dispatcher.forward(request, response);
         }
     }

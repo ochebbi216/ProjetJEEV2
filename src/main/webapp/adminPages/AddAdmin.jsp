@@ -9,17 +9,17 @@
         <link rel="stylesheet" href="adminlogin/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
         <!-- STYLE CSS -->
-        <link rel="stylesheet" href="adminlogin/css/style.css">
+        <link rel="stylesheet" href="../adminlogin/css/style.css">
     </head>
 
     <body>
 
-        <div class="wrapper" style="background-image: url('adminlogin/images/fond.jpg');">
+        <div class="wrapper" style="background-image: url('../adminlogin/images/fond.jpg');">
             <div class="inner">
                 <div class="image-holder">
-                    <img src="adminlogin/images/adminregister.jpg" alt="">
+                    <img src="../adminlogin/images/adminregister.jpg" alt="">
                 </div>
-                <form action="admin?action=login" method="post">
+                <form action="../admin?action=login" method="post">
 
                     <h3>Login Form</h3>
 

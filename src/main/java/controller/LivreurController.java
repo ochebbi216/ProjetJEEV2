@@ -22,10 +22,10 @@ public class LivreurController extends HttpServlet {
             Livreur livreur = livreurDao.find(id);
             request.setAttribute("Livreur", livreur);
             if (action.equals("edit")) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/EditLivreur.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/EditLivreur.jsp");
                 dispatcher.forward(request, response);
             } else if (action.equals("detail")) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/DetailLivreur.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DetailLivreur.jsp");
                 dispatcher.forward(request, response);
             }
         } else {
@@ -39,7 +39,7 @@ public class LivreurController extends HttpServlet {
                 livreurs = livreurDao.findAll();
             }
         request.setAttribute("Livreurs", livreurs);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/AllLivreur.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/AllLivreur.jsp");
         dispatcher.forward(request, response);
         }
     }

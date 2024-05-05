@@ -79,11 +79,14 @@
         <div class="content-wrapper">
 
         <h1 class="header">List of Available Pizzas</h1>
+            <a href="/projetjsp1/AddPizza.jsp" class="btn btn-success"> <i class="fas fa-add"></i> Add New Pizza</a>
+        
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
                     <th>Name</th>
                     <th>Categorie</th>
+                    <th>Taille</th>
                     <th>Description</th>
                     <th>Base Price</th>
                     <th>Image</th>
@@ -95,13 +98,13 @@
                     <tr>
                         <td><c:out value="${pizza.nom}"/></td>
                         <td><c:out value="${pizza.categorie}"/></td>
+                        <td><c:out value="${pizza.taille}"/></td>
                         <td><c:out value="${pizza.description}"/></td>
                         <td><c:out value="${pizza.prixBase}"/> DT</td>
                         <td><img src="${pizza.image}" alt="Pizza Image"/></td>
                         <td>
 		            <a href="pizza?action=edit&id=${pizza.id}" class="btn " style="color:blue;"><i class="fas fa-edit"></i> </a>
 		            <button onclick="deletePizza(${pizza.id});" class="btn " style="color:red;"><i class="fas fa-trash-alt"></i> </button>
-		            <a href="pizza?action=detail&id=${pizza.id}" class="btn " style="color:gray;"><i class="fas fa-info-circle"></i> </a>
 <%--                             <a href="panier?action=add&pizzaId=${pizza.id}" class="btn btn-warning">Add to Cart</a>
  --%>                        </td>
                     </tr>
