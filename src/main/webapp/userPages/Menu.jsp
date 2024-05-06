@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
@@ -57,8 +57,7 @@
 <link href="assets/vendor/glightbox/css/glightbox.min.css"
 	rel="stylesheet">
 
-<link href="assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 
 
@@ -75,10 +74,10 @@
 
 
 
-<jsp:include page="client-header.jsp"/>
+	<jsp:include page="client-header.jsp" />
 
 
-<br>
+	<br>
 
 
 
@@ -89,179 +88,187 @@
 
 	<!-- Menu Section with Dynamic Content -->
 
-<section id="menu" class="menu">
+	<section id="menu" class="menu">
 
-    <div class="container" data-aos="fade-up">
+		<div class="container" data-aos="fade-up">
 
-        <div class="section-header">
+			<div class="section-header">
 
-            <h2>Our Menu</h2>
+				<h2>Our Menu</h2>
 
-            <p>Check Our <span>Yummy Menu</span></p>
+				<p>
+					Check Our <span>Yummy Menu</span>
+				</p>
 
-        </div>
+			</div>
 
 
 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+			<ul class="nav nav-tabs d-flex justify-content-center"
+				data-aos="fade-up" data-aos-delay="200">
 
-            <li class="nav-item">
+				<li class="nav-item"><a class="nav-link active"
+					data-bs-toggle="tab" href="#classic">Classic Pizzas</a></li>
 
-                <a class="nav-link active" data-bs-toggle="tab" href="#classic">Classic Pizzas</a>
+				<li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
+					href="#meat-lovers">Meat Lovers' Pizzas</a></li>
 
-            </li>
+				<li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
+					href="#vegetarian">Vegetarian Pizzas</a></li>
 
-            <li class="nav-item">
+				<li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
+					href="#gourmet">Gourmet Pizzas</a></li>
 
-                <a class="nav-link" data-bs-toggle="tab" href="#meat-lovers">Meat Lovers' Pizzas</a>
+			</ul>
 
-            </li>
 
-            <li class="nav-item">
+			<br> <br>
+			<div class="tab-content">
 
-                <a class="nav-link" data-bs-toggle="tab" href="#vegetarian">Vegetarian Pizzas</a>
+				<!-- Displaying Classic Pizzas -->
 
-            </li>
+				<div class="tab-pane active" id="classic">
 
-            <li class="nav-item">
+					<div class="row">
 
-                <a class="nav-link" data-bs-toggle="tab" href="#gourmet">Gourmet Pizzas</a>
+						<c:forEach var="pizza" items="${classicPizzas}">
+							<div class="col-lg-4 " style="margin-top:25px;">
 
-            </li>
+								<div class="menu-item">
+									<a href="pizza?action=detail&id=${pizza.id}"> 
+									<img height=250 width=350
+										src="${pizza.image}"  alt="${pizza.nom}"
+										>
+										
+										<h4 style="margin-top:15px;">${pizza.nom}</h4>
 
-        </ul>
+										<p style="color: gray;">${pizza.description}</p>
+										<p class=" text-danger ">Only ${pizza.prixBase} DT</p> <a
+										class="btn btn-outline-dark " type="button"
+										href="panier?action=add&pizzaId=${pizza.id}"> <i
+											class="bi-cart-fill me-1"></i> Add to cart
+									</a>
+									</a>
 
 
-<br> <br>
-        <div class="tab-content">
+								</div>
 
-            <!-- Displaying Classic Pizzas -->
+							</div>
 
-            <div class="tab-pane active" id="classic">
+						</c:forEach>
 
-                <div class="row">
+					</div>
 
-                    <c:forEach var="pizza" items="${classicPizzas}">
+				</div>
 
-                        <div class="col-lg-4">
+				<div class="tab-pane " id="meat-lovers">
 
-                            <div class="menu-item">
+					<div class="row">
 
-                                <img src="${pizza.image}" alt="${pizza.nom}" class="menu-img img-fluid">
+						<c:forEach var="p2" items="${meatLoversPizzas}">
 
-                                <h4>${pizza.nom}</h4>
+							<div class="col-lg-4">
 
-                                <p>${pizza.description}</p>
+								<div class="menu-item">
+									<a href="pizza?action=detail&id=${p2.id}"> <img
+										src="${p2.image}" alt="${p2.nom}" class="menu-img img-fluid">
 
-                                <p>${pizza.prixBase} DT</p>
+										<h4>${p2.nom}</h4>
 
-                            </div>
+										<p style="color: gray;">${p2.description}</p>
+										<p class=" text-danger ">Only ${p2.prixBase} DT</p> <a
+										class="btn btn-outline-dark " type="button"
+										href="panier?action=add&pizzaId=${pizza.id}"> <i
+											class="bi-cart-fill me-1"></i> Add to cart
+									</a>
+									</a>
 
-                        </div>
+								</div>
 
-                    </c:forEach>
+							</div>
 
-                </div>
+						</c:forEach>
 
-            </div>
-            
-            <div class="tab-pane " id="meat-lovers">
+					</div>
 
-                <div class="row">
+				</div>
 
-                    <c:forEach var="p2" items="${meatLoversPizzas}">
 
-                        <div class="col-lg-4">
+				<div class="tab-pane " id="vegetarian">
 
-                            <div class="menu-item">
+					<div class="row">
 
-                                <img src="${p2.image}" alt="${p2.nom}" class="menu-img img-fluid">
+						<c:forEach var="p3" items="${vegetarianPizzas}">
 
-                                <h4>${p2.nom}</h4>
+							<div class="col-lg-4">
 
-                                <p>${p2.description}</p>
+								<div class="menu-item">
+									<a href="pizza?action=detail&id=${p3.id}"> <img
+										src="${p3.image}" alt="${p3.nom}" class="menu-img img-fluid">
 
-                                <p>${p2.prixBase} DT</p>
+										<h4>${p3.nom}</h4>
 
-                            </div>
+										<p style="color: gray;">${p3.description}</p>
+										<p class=" text-danger ">Only ${p3.prixBase} DT</p> <a
+										class="btn btn-outline-dark " type="button"
+										href="panier?action=add&pizzaId=${pizza.id}"> <i
+											class="bi-cart-fill me-1"></i> Add to cart
+									</a>
+									</a>
 
-                        </div>
+								</div>
 
-                    </c:forEach>
+							</div>
 
-                </div>
+						</c:forEach>
 
-            </div>
-            
-            
-			<div class="tab-pane " id="vegetarian">
+					</div>
 
-                <div class="row">
+				</div>
 
-                    <c:forEach var="p3" items="${vegetarianPizzas}">
+				<div class="tab-pane " id="gourmet">
 
-                        <div class="col-lg-4">
+					<div class="row">
 
-                            <div class="menu-item">
+						<c:forEach var="p4" items="${gourmetPizzas}">
 
-                                <img src="${p3.image}" alt="${p3.nom}" class="menu-img img-fluid">
+							<div class="col-lg-4">
 
-                                <h4>${p3.nom}</h4>
+								<div class="menu-item">
+									<a href="pizza?action=detail&id=${p4.id}"> <img
+										src="${p4.image}" alt="${p4.nom}" class="menu-img img-fluid">
 
-                                <p>${p3.description}</p>
+										<h4>${p4.nom}</h4>
 
-                                <p>${p3.prixBase} DT</p>
+										<p style="color: gray;">${p4.description}</p>
+										<p class=" text-danger ">Only ${p4.prixBase} DT</p> <a
+										class="btn btn-outline-dark " type="button"
+										href="panier?action=add&pizzaId=${pizza.id}"> <i
+											class="bi-cart-fill me-1"></i> Add to cart
+									</a>
+									</a>
+								</div>
 
-                            </div>
+							</div>
 
-                        </div>
+						</c:forEach>
 
-                    </c:forEach>
+					</div>
 
-                </div>
+				</div>
 
-            </div>            
-            
-            <div class="tab-pane " id="gourmet">
+				<!-- Repeat for other categories -->
 
-                <div class="row">
+			</div>
 
-                    <c:forEach var="p4" items="${gourmetPizzas}">
+		</div>
 
-                        <div class="col-lg-4">
-
-                            <div class="menu-item">
-
-                                <img src="${p4.image}" alt="${p4.nom}" class="menu-img img-fluid">
-
-                                <h4>${p4.nom}</h4>
-
-                                <p>${p4.description}</p>
-
-                                <p>${p4.prixBase} DT</p>
-
-                            </div>
-
-                        </div>
-
-                    </c:forEach>
-
-                </div>
-
-            </div>
-
-            <!-- Repeat for other categories -->
-
-        </div>
-
-    </div>
-
-</section>
+	</section>
 
 	<!-- End Menu Section -->
 
 
-	    <jsp:include page="footer-client.jsp"/>
+	<jsp:include page="footer-client.jsp" />
 
 	<!-- End Footer -->
 

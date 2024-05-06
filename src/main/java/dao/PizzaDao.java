@@ -86,6 +86,19 @@ public class PizzaDao {
             throw new RuntimeException("Failed to fetch pizza categories", e);
         }
     }
+    public List<Pizza> findByCategoryExcluding(String category, int excludeId) {
+        try (Session session = openSession()) {
+            return session.createQuery("FROM Pizza WHERE categorie = :category AND pizzaId != :excludeId", Pizza.class)
+                          .setParameter("category", category)
+                          .setParameter("excludeId", excludeId)
+                          .setMaxResults(4)  // Limit the results to 4
+                          .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch related pizzas", e);
+        }
+    }
+
 
     public List<Pizza> findByCategory(String category) {
         try (Session session = openSession()) {

@@ -28,7 +28,10 @@ public class PizzaController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Pizza pizza = pizzaDao.find(id);
             request.setAttribute("pizza", pizza);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DetailPizza.jsp");
+            // Fetch other pizzas from the same category
+            List<Pizza> relatedPizzas = pizzaDao.findByCategoryExcluding(pizza.getCategorie(), pizza.getId());
+            request.setAttribute("relatedPizzas", relatedPizzas);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/DetailPizza.jsp");
             dispatcher.forward(request, response);
         }
         if(action != null && action.equals("menu")) {

@@ -46,20 +46,20 @@ public class PanierController extends HttpServlet {
                     id = Integer.parseInt(request.getParameter("id"));
                     panier = panierDao.find(id);
                     request.setAttribute("panier", panier);
-                    dispatcher = request.getRequestDispatcher("/DetailPanier.jsp");
+                    dispatcher = request.getRequestDispatcher("/userPages/DetailPanier.jsp");
                     dispatcher.forward(request, response);
                     break;
                 default:
                     List<Panier> paniers = panierDao.findAll();
                     request.setAttribute("paniers", paniers);
-                    dispatcher = request.getRequestDispatcher("/AllPanier.jsp");
+                    dispatcher = request.getRequestDispatcher("/userPages/AllPanier.jsp");
                     dispatcher.forward(request, response);
                     break;
             }
         } else {
             List<Panier> paniers = panierDao.findAll();
             request.setAttribute("paniers", paniers);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/AllPanier.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/AllPanier.jsp");
             dispatcher.forward(request, response);
         }
     }
