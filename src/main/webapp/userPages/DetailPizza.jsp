@@ -16,7 +16,14 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="detail-pizza/css/styles.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>
+.card .card-body .text-center h5,
+.card .card-body .text-center span {
+    color: black;
+    text-decoration: none;
+}
 
+</style>
 </head>
 <body>
 <a class="btn btn-outline-dark flex-shrink-0" style="margin:10pt;" type="button"
@@ -63,18 +70,24 @@ href="pizza?action=menu">
             <c:choose>
                 <c:when test="${not empty relatedPizzas}">
                     <c:forEach var="relatedPizza" items="${relatedPizzas}">
+                    
                         <div class="col mb-5">
+                            <a href="pizza?action=detail&id=${relatedPizza.id}"> 
+                        
                             <div class="card h-100">
+                            
                                 <!-- Product image-->
                                 <img class="card-img-top" height="250" src="${relatedPizza.image}" alt="${relatedPizza.nom}" />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder">${relatedPizza.nom}</h5>
-                                        <!-- Product price-->
-                                        ${relatedPizza.prixBase} DT
-                                    </div>
-                                </div>
+								<!-- Product details-->
+								<div class="card-body p-4">
+								    <div class="text-center">
+								        <h5 style="color: black !important; text-decoration: none !important;">${relatedPizza.nom}</h5>
+								        <!-- Product price-->
+								        <span style="color: black !important; text-decoration: none !important;">${relatedPizza.prixBase} DT</span>
+								    </div>
+								</div>
+
+
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
@@ -84,6 +97,8 @@ href="pizza?action=menu">
                                     </div>
                                 </div>
                             </div>
+                            </a>
+                           
                         </div>
                     </c:forEach>
                 </c:when>
