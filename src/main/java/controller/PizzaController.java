@@ -34,6 +34,12 @@ public class PizzaController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/DetailPizza.jsp");
             dispatcher.forward(request, response);
         }
+        if (action != null && action.equals("pizzachef")) {
+            List<Pizza> pizzas = pizzaDao.findAll();
+                 request.setAttribute("pizzas", pizzas);
+                 RequestDispatcher dispatcher = request.getRequestDispatcher("chefPages/AllPizza.jsp");
+                 dispatcher.forward(request, response);
+        }
         if(action != null && action.equals("menu")) {
             
             request.setAttribute("classicPizzas", pizzaDao.findByCategory("Classic"));
@@ -42,6 +48,12 @@ public class PizzaController extends HttpServlet {
             request.setAttribute("gourmetPizzas", pizzaDao.findByCategory("Gourmet"));
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/Menu.jsp");
+            dispatcher.forward(request, response);
+        }
+        if(action != null && action.equals("livreurPizza")) {
+            List<Pizza> pizzas = pizzaDao.findAll();
+            request.setAttribute("pizzas", pizzas);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("livreurPages/AllPizza.jsp");
             dispatcher.forward(request, response);
         }
 

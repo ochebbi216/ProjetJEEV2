@@ -4,22 +4,47 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import model.Chef;
 import util.Hibernate;
 
 public class ChefDao {
-	
+
     private Session openSession() {
         return Hibernate.getSessionFactory().openSession();
     }
-    
+   
     public Chef find(int id) {
         try (Session session = openSession()) {
             return session.get(Chef.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to find user with ID: " + id, e);
+        }
+    }
+public boolean authenticateByEmail(String email) {
+   try (Session session = openSession()) {
+       String hql = "SELECT count(*) FROM Chef WHERE email = :email";
+       Query<Long> query = session.createQuery(hql, Long.class);
+       query.setParameter("email", email);
+       return query.uniqueResult() > 0;
+   } catch (Exception e) {
+       e.printStackTrace();
+       return false;
+   }
+}
+
+public Chef authenticate(String email, String motDePasse) {
+        try (Session session = openSession()) {
+            String hql = "FROM Chef WHERE email = :email AND motDePasse = :motDePasse";
+            Query query = session.createQuery(hql);
+            query.setParameter("email", email);
+            query.setParameter("motDePasse", motDePasse);
+            return (Chef) query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Authentication failed", e);
         }
     }
 
@@ -66,7 +91,7 @@ public class ChefDao {
             e.printStackTrace();
             throw new RuntimeException("Failed to delete user with ID: " + userId, e);
         } finally {
-        	session.close();
+        session.close();
         }
     }
 

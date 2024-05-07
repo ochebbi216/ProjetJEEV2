@@ -168,7 +168,7 @@
 
     </div>
 
-    <a class="btn btn-outline-danger" href="/projetjsp1/AddPizza.jsp"><i class="fa-solid fa-pizza-slice"></i> Add New Pizza</a>
+    <a class="btn btn-outline-danger" href="pizza?action=menu"><i class="fa-solid fa-pizza-slice"></i> Still Hungry?</a>
 
 </main>
 

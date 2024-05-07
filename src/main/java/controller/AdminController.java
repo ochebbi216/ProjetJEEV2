@@ -49,9 +49,11 @@ public class AdminController extends HttpServlet {
                 addAdmin(request, response);
             } else if (action.equals("edit")) {
                 editAdmin(request, response);
-            } else if (action.equals("login")) {
+            } 
+            else if (action.equals("login")) {
                 loginAdmin(request, response);
-            } else if (action.equals("delete")) {
+            } 
+            else if (action.equals("delete")) {
                 deleteAdmin(request, response);
             }
         }
@@ -116,7 +118,6 @@ public class AdminController extends HttpServlet {
             Admin.setNom(nom);
             Admin.setEmail(email);
             Admin.setMotDePasse(motDePasse);
-        
  
             response.sendRedirect("admin");
         } else {

@@ -6,7 +6,7 @@
 
 <%@ page
 	import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest"%>
-<%
+<%-- <%
 boolean isAuthenticated = false;
 Cookie[] cookies = request.getCookies();
 if (cookies != null) {
@@ -22,7 +22,7 @@ if (!isAuthenticated) {
 	response.sendRedirect("userPages/LoginUser.jsp"); // Redirect to the login page if not authenticated
 	return;
 }
-%>
+%> --%>
 
 <!DOCTYPE html>
 
@@ -55,7 +55,7 @@ if (!isAuthenticated) {
 </head>
 
 <body>
-	<jsp:include page="client-header.jsp" />
+     <jsp:include page="livreur-header.jsp"/>
 
 	<main class="container mt-4">
 		<br> <br> <br> <br> <br> <br>
@@ -100,8 +100,6 @@ if (!isAuthenticated) {
 
 			</c:forEach>
 
-
-
 		</table>
 
 		<a class="btn btn-outline-danger" href="panier"><i
@@ -111,8 +109,7 @@ if (!isAuthenticated) {
 	<br>
 	<br>
 	<br>
-
-	<jsp:include page="footer-client.jsp" />
+	<jsp:include page="livreur-footer.jsp" />
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>

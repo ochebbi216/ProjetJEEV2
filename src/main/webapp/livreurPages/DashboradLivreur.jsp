@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
+<%-- <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
 <%
     boolean isAuthenticated = false;
     Cookie[] cookies = request.getCookies();
@@ -16,7 +16,7 @@
         response.sendRedirect("adminPages/AddAdmin.jsp");  // Redirect to the login page if not authenticated
         return;
     }
-%>
+%> --%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +44,7 @@
 <body>
   <div class="container-scroller">
 
-     <jsp:include page="admin-header.jsp"/>
+     <jsp:include page="livreur-header.jsp"/>
      
       <!-- partial -->
       <div class="main-panel">
@@ -113,7 +113,7 @@
             
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-		<jsp:include page="admin-footer.jsp"/>
+		<jsp:include page="livreur-footer.jsp"/>
 		
         <!-- partial -->
       </div>

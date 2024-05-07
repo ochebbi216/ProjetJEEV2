@@ -5,9 +5,10 @@ import java.util.List;
 import org.hibernate.Session;
 
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import model.Livreur;
-
+import model.User;
 import util.Hibernate;
 
 public class LivreurDao {
@@ -155,5 +156,30 @@ public class LivreurDao {
 		}
 
 	}
+	
+	public boolean authenticateByEmail(String email) {
+	    try (Session session = openSession()) {
+	        String hql = "SELECT count(*) FROM Livreur WHERE email = :email";
+	        Query<Long> query = session.createQuery(hql, Long.class);
+	        query.setParameter("email", email);
+	        return query.uniqueResult() > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+	public Livreur authenticate(String email, String motDePasse) {
+        try (Session session = openSession()) {
+            String hql = "FROM Livreur WHERE email = :email AND motDePasse = :motDePasse";
+            Query query = session.createQuery(hql);
+            query.setParameter("email", email);
+            query.setParameter("motDePasse", motDePasse);
+            return (Livreur) query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Authentication failed", e);
+        }
+    }
 
 }

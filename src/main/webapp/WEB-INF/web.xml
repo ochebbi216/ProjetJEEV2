@@ -109,4 +109,24 @@
     <servlet-name>AuthGuard</servlet-name>
     <url-pattern>/AuthGuard</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DashboardLivreurController</display-name>
+    <servlet-name>DashboardLivreurController</servlet-name>
+    <servlet-class>controller.DashboardLivreurController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DashboardLivreurController</servlet-name>
+    <url-pattern>/DashboardLivreurController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DashboardChefController</display-name>
+    <servlet-name>DashboardChefController</servlet-name>
+    <servlet-class>controller.DashboardChefController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DashboardChefController</servlet-name>
+    <url-pattern>/DashboardChefController</url-pattern>
+  </servlet-mapping>
 </web-app>
