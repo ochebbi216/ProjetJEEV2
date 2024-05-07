@@ -66,7 +66,7 @@
 			</li>
 			
          	<li class="nav-item">
-			    <a class="nav-link" href="commande?action=allCommande">
+			    <a class="nav-link" href="commande?action=livreurcommandes">
 			        <i class="icon-layout menu-icon"></i>
 			        <span class="menu-title">All Commandes</span>
 			    </a>

@@ -40,7 +40,7 @@ public class DashboardController extends HttpServlet {
         request.setAttribute("totalClients", totalClients);
 
    
-        RequestDispatcher dispatcher = request.getRequestDispatcher("adminPages/DashboradAdmin.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DashboradAdmin.jsp");
         dispatcher.forward(request, response);
     }
     

@@ -17,7 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import dao.CommandeDao;
-
+import dao.LivreurDao;
 import dao.PanierDao;
 
 import jakarta.servlet.*;
@@ -27,7 +27,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import model.Commande;
-
+import model.Livreur;
 import model.Panier;
 
 import model.Pizza;
@@ -95,6 +95,44 @@ public class CommandeController extends HttpServlet {
 
 				break;
 
+			case "livreurcommandes":
+
+				List<Commande> commandes2 = commandeDao.findAll();
+
+				request.setAttribute("commandes", commandes2);
+
+				dispatcher = request.getRequestDispatcher("/livreurPages/AllCommandes.jsp");
+
+				dispatcher.forward(request, response);
+
+				break;
+			case "chefcommandes":
+
+				List<Commande> commandes3 = commandeDao.findAll();
+				LivreurDao livreurDao = new LivreurDao();
+				List<Livreur> livreursDisponibles = livreurDao.findByAvailability(true);
+				
+				request.setAttribute("livreursDisponibles", livreursDisponibles);
+
+				request.setAttribute("commandes", commandes3);
+				System.out.println("Nombre de livreurs disponibles: " + livreursDisponibles.size());
+
+				dispatcher = request.getRequestDispatcher("/chefPages/AllCommandes.jsp");
+
+				dispatcher.forward(request, response);
+
+				break;
+//			case "livreuravailable":
+//
+//				LivreurDao livreurDao = new LivreurDao();
+//				List<Livreur> livreursDisponibles = livreurDao.findByAvailability(true);
+//				request.setAttribute("livreursDisponibles", livreursDisponibles);
+//
+//				RequestDispatcher dispatcher1 = request.getRequestDispatcher("/chefPages/AllCommandes.jsp");
+//				dispatcher1.forward(request, response);
+//
+//				System.out.println("Nombre de livreurs disponibles: " + livreursDisponibles.size());
+//				break;
 			default:
 
 				List<Commande> commandes = commandeDao.findAll();

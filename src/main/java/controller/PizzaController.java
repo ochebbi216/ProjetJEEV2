@@ -35,9 +35,9 @@ public class PizzaController extends HttpServlet {
             dispatcher.forward(request, response);
         }
         if (action != null && action.equals("pizzachef")) {
-            List<Pizza> pizzas = pizzaDao.findAll();
-                 request.setAttribute("pizzas", pizzas);
-                 RequestDispatcher dispatcher = request.getRequestDispatcher("chefPages/AllPizza.jsp");
+            List<Pizza> pizzas2 = pizzaDao.findAll();
+                 request.setAttribute("pizzas", pizzas2);
+                 RequestDispatcher dispatcher = request.getRequestDispatcher("/chefPages/AllPizza.jsp");
                  dispatcher.forward(request, response);
         }
         if(action != null && action.equals("menu")) {

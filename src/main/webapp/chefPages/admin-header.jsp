@@ -106,7 +106,7 @@
 
 			<li class="nav-item">
 
-			    <a class="nav-link" href="User">
+			    <a class="nav-link" href="commande?action=chefcommandes">
 
 			        <i class="icon-layout menu-icon"></i>
 
