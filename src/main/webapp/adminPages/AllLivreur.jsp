@@ -14,7 +14,7 @@
     }
 
     if (!isAuthenticated) {
-        response.sendRedirect("AddAdmin.jsp");  // Redirect to the login page if not authenticated
+        response.sendRedirect("adminPages/AddAdmin.jsp");  // Redirect to the login page if not authenticated
         return;
     }
 %>

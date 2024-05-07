@@ -1,40 +1,24 @@
-<%-- 
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("adminEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>chefs</title>
-    <!-- Add link to CSS files and any additional head elements -->
-</head>
-<body>
+    // Redirect to the dashboard if already authenticated
+    if (isAuthenticated) {
+        response.sendRedirect("../dashboard"); // Update this with the path to your dashboard page
+        return; // Stop further execution of JSP to ensure redirection happens immediately
+    }
 
-<h2>Add Chef</h2>
 
-<!-- Action should point to the URL mapped to your PizzaController's doPost method -->
-<form action="chef1?action=add" method="post">
-   
-    <div>
-        <label for="nom">nom:</label>
-        <input type="nom" id="nom" name="nom" required>
-    </div>
-    <div>
-        <label for="email">email:</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div>
-        <label for="motDePasse">Password:</label>
-        <input type="motDePasse" id="motDePasse" name="motDePasse" required>
-    </div>
-    
-    <div>
-    <div>
-        <button type="submit" name="add">Add Chef</button>
-    </div>
-</form>
-
-</body>
-</html>
- --%>
+%>
 <!doctype html>
 <html lang="en">
 <head>
