@@ -1,5 +1,24 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("userEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
+
+    if (!isAuthenticated) {
+        response.sendRedirect("userPages/LoginUser.jsp");  // Redirect to the login page if not authenticated
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

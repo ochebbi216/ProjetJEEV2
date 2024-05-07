@@ -39,7 +39,7 @@ public class PanierController extends HttpServlet {
                     int id = Integer.parseInt(request.getParameter("id"));
                     Panier panier = panierDao.find(id);
                     request.setAttribute("panier", panier);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/EditPanier.jsp");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/EditPanier.jsp");
                     dispatcher.forward(request, response);
                     break;
                 case "detail":

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import jakarta.persistence.EntityManager;
 import model.Panier;
 import util.Hibernate;
 
@@ -22,6 +23,7 @@ public class PanierDao {
             throw new RuntimeException("Failed to find panier with ID: " + id, e);
         }
     }
+
 
     public void save(Panier panier) {
         Transaction tx = null;
@@ -77,6 +79,24 @@ public class PanierDao {
             e.printStackTrace();
             throw new RuntimeException("Failed to fetch all paniers", e);
         }
+    }
+    
+    public List<Panier> findAllByUserId(int userId) {
+        Transaction tx = null;
+        List<Panier> results = null;
+        try (Session session = openSession()) {
+            tx = session.beginTransaction();
+            // Query to find all Panier instances by userid
+            results = session.createQuery("FROM Panier p WHERE p.userid = :userid", Panier.class)
+                             .setParameter("userid", userId)
+                             .list();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+            throw new RuntimeException("Failed to find paniers for user ID: " + userId, e);
+        }
+        return results;
     }
 
 }

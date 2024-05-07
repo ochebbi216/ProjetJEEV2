@@ -1,3 +1,23 @@
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("userEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
+
+    // Redirect to the dashboard if already authenticated
+    if (isAuthenticated) {
+        response.sendRedirect("../userPages/Home.jsp"); // Update this with the path to your dashboard page
+        return; // Stop further execution of JSP to ensure redirection happens immediately
+    }
+
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,16 +40,16 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Sign In</h3>
-                    <form action="UserController?action=add" method="post" class="signin-form">
+                    <form action="../User?action=login" method="post" class="signin-form">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Email" name="login" required>
+                            <input type="text" class="form-control" placeholder="Email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <input id="password-field" type="password" class="form-control" placeholder="Password" name="pass" required>
+                            <input id="password-field" type="password" class="form-control" placeholder="Password" name="motDePasse" required>
                             <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                            <button type="submit"  name="login" class="form-control btn btn-primary submit px-3">Sign In</button>
                         </div>
                     </form>
                 </div>

@@ -2,6 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("userEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
+
+    if (!isAuthenticated) {
+        response.sendRedirect("userPages/LoginUser.jsp");  // Redirect to the login page if not authenticated
+        return;
+    }
+%>
 
 <!DOCTYPE html>
 
@@ -144,7 +162,8 @@
 										<h4 style="margin-top:15px;">${pizza.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(pizza.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger ">Only ${pizza.prixBase} DT</p> <a
+										<p class=" text-danger "><b> Only ${pizza.prixBase} DT</b></p> 
+										<a
 										class="btn btn-outline-dark " type="button"
 										href="panier?action=add&pizzaId=${pizza.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart
@@ -177,7 +196,7 @@
 										<h4>${p2.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(p2.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger ">Only ${p2.prixBase} DT</p> <a
+										<p class=" text-danger "><b>Only ${p2.prixBase} DT</b></p> <a
 										class="btn btn-outline-dark " type="button"
 										href="panier?action=add&pizzaId=${pizza.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart
@@ -210,7 +229,7 @@
 										<h4>${p3.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(p3.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger ">Only ${p3.prixBase} DT</p> <a
+										<p class=" text-danger "><b>Only ${p3.prixBase} DT</b></p> <a
 										class="btn btn-outline-dark " type="button"
 										href="panier?action=add&pizzaId=${pizza.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart
@@ -242,7 +261,7 @@
 										<h4>${p4.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(p4.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger ">Only ${p4.prixBase} DT</p> <a
+										<p class=" text-danger "> <b>Only ${p4.prixBase} DT</b></p> <a
 										class="btn btn-outline-dark " type="button"
 										href="panier?action=add&pizzaId=${pizza.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart

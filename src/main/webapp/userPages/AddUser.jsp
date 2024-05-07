@@ -1,3 +1,23 @@
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("userEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
+
+    // Redirect to the dashboard if already authenticated
+    if (isAuthenticated) {
+        response.sendRedirect("../userPages/Home.jsp"); // Update this with the path to your dashboard page
+        return; // Stop further execution of JSP to ensure redirection happens immediately
+    }
+
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,7 +40,7 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Create your account</h3>
-                    <form action="UserController?action=add" method="post" class="signin-form">
+                    <form action="../User?action=add" method="post" class="signin-form">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Email" name="login" required>
                         </div>

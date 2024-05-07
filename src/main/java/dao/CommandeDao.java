@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.Commande;
+import model.Panier;
 import util.Hibernate;
 
 public class CommandeDao {
@@ -69,6 +70,23 @@ private Session openSession() {
        }
    }
 
+   public void saveCommandeWithItems(Commande commande, List<Panier> cartItems) {
+       Transaction tx = null;
+       try (Session session = openSession()) {
+           tx = session.beginTransaction();
+           session.persist(commande);
+           for (Panier item : cartItems) {
+               item.setCommande(commande);
+               session.merge(item);
+           }
+           tx.commit();
+       } catch (Exception e) {
+           if (tx != null) tx.rollback();
+           e.printStackTrace();
+           throw new RuntimeException("Failed to save commande and update panier items", e);
+       }
+   }
+   
    public List<Commande> findAll() {
        try (Session session = openSession()) {
            return session.createQuery("FROM Commande", Commande.class).list();

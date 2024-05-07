@@ -1,3 +1,23 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
+<%
+    boolean isAuthenticated = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("userEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+                isAuthenticated = true;
+                break;
+            }
+        }
+    }
+
+    if (!isAuthenticated) {
+        response.sendRedirect("userPages/LoginUser.jsp");  // Redirect to the login page if not authenticated
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,6 +78,8 @@
         <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
           <h2 data-aos="fade-up">Enjoy Your <br>Delicious Pizza</h2>
           <p data-aos="fade-up" data-aos-delay="100">We deliver the best pizza in Tunisia</p>
+          <p data-aos="fade-up" style="color:red;" data-aos-delay="100"><i class="fa-solid fa-circle-exclamation"></i> Enjoy Free Delivery at limited time what you stil waiting order now !!</p>
+          
       
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">

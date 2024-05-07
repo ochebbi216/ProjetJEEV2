@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import model.User;
 import util.Hibernate;
@@ -20,6 +21,31 @@ public class UserDao {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to find user with ID: " + id, e);
+        }
+    }
+    
+	public boolean authenticateByEmail(String email) {
+	    try (Session session = openSession()) {
+	        String hql = "SELECT count(*) FROM User WHERE login = :login";
+	        Query<Long> query = session.createQuery(hql, Long.class);
+	        query.setParameter("email", email);
+	        return query.uniqueResult() > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+	public User authenticate(String login, String pass) {
+        try (Session session = openSession()) {
+            String hql = "FROM User WHERE login = :login AND pass = :pass";
+            Query query = session.createQuery(hql);
+            query.setParameter("login", login);
+            query.setParameter("pass", pass);
+            return (User) query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Authentication failed", e);
         }
     }
 
