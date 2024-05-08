@@ -45,7 +45,7 @@ if (cookies != null) {
 
 
 
-<title>All Orders</title>
+<title>My Orders</title>
 
 
 
@@ -130,7 +130,7 @@ if (cookies != null) {
 
 <style>
 body {
-	padding-top: 20px;
+	padding-top: 0px;
 	background-color: #f8f9fa;
 }
 
@@ -199,7 +199,7 @@ td img {
 
 
 
-				<h1 class="header">List of Available of Orders</h1>
+				<h1 class="header">My Orders</h1>
 
 
 

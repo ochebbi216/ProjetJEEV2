@@ -46,7 +46,7 @@
   <link rel="shortcut icon" href="admin/images/favicon.png" />
     <style>
         body {
-            padding-top: 20px;
+            padding-top: 0px;
             background-color: #f8f9fa;
         }
         .container {

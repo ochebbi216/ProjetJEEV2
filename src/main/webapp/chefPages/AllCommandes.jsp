@@ -130,7 +130,7 @@ if (cookies != null) {
 
 <style>
 body {
-	padding-top: 20px;
+	padding-top: 00px;
 	background-color: #f8f9fa;
 }
 
