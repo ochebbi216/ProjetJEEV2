@@ -19,11 +19,11 @@ public class Commande {
 	@Column(name = "userid")
 	private int userid;
 
-//	@Column(name = "chefid")
-//	private int chefid;
-//
-//	@Column(name = "livreurid")
-//	private int livreurid;
+	@Column(name = "chefid")
+	private Integer chefid;
+
+	@Column(name = "livreurid")
+	private Integer livreurid;
 
 	@Column(name = "statut")
 	private String statut;
@@ -79,21 +79,21 @@ public class Commande {
 		this.userid = userid;
 	}
 
-//	public int getChefid() {
-//		return chefid;
-//	}
-//
-//	public void setChefid(int chefid) {
-//		this.chefid = chefid;
-//	}
-//
-//	public int getLivreurid() {
-//		return livreurid;
-//	}
-//
-//	public void setLivreurid(int livreurid) {
-//		this.livreurid = livreurid;
-//	}
+	public Integer getChefid() {
+		return chefid;
+	}
+
+	public void setChefid(Integer chefid) {
+		this.chefid = chefid;
+	}
+
+	public Integer getLivreurid() {
+		return livreurid;
+	}
+
+	public void setLivreurid(Integer livreurid) {
+		this.livreurid = livreurid;
+	}
 
 	public void setNumTel(String numTel) {
 		this.numTel = numTel;

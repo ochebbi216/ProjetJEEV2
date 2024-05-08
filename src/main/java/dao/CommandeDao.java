@@ -1,9 +1,11 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import model.Commande;
 import model.Panier;
@@ -95,6 +97,32 @@ private Session openSession() {
            throw new RuntimeException("Failed to fetch all commandes", e);
        }
    }
-   
+   public List<Commande> findUnassignedCommandes() {
+	    try (Session session = openSession()) {
+	    	return session.createQuery("FROM Commande WHERE statut = 'en attente'", Commande.class).list();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ArrayList<>();
+	    }
+	}
+
+   public List<Commande> findAssignedCommandes(int chefid) {
+	    try (Session session = openSession()) {
+	        Query<Commande> query = session.createQuery("FROM Commande WHERE (statut = 'en cour' OR statut = 'prepared') AND chefid = :chefid", Commande.class);
+	        query.setParameter("chefid", chefid);  // Make sure to set parameter
+	        List<Commande> result = query.list();
+	        if (result.isEmpty()) {
+	            System.out.println("No commandes found for chefid: " + chefid);
+	        } else {
+	            System.out.println("Found " + result.size() + " commandes for chefid: " + chefid);
+	        }
+	        return result;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ArrayList<>();
+	    }
+	}
+
+
 
 }

@@ -107,21 +107,67 @@ public class CommandeController extends HttpServlet {
 
 				break;
 			case "chefcommandes":
+			    List<Commande> unassignedCommandes = commandeDao.findUnassignedCommandes();
+			    LivreurDao livreurDao = new LivreurDao();
+			    List<Livreur> livreursDisponibles = livreurDao.findByAvailability(true);
+		        
+			    request.setAttribute("livreursDisponibles", livreursDisponibles);
+			    request.setAttribute("commandes", unassignedCommandes);
 
-				List<Commande> commandes3 = commandeDao.findAll();
-				LivreurDao livreurDao = new LivreurDao();
-				List<Livreur> livreursDisponibles = livreurDao.findByAvailability(true);
-				
-				request.setAttribute("livreursDisponibles", livreursDisponibles);
+			    dispatcher = request.getRequestDispatcher("/chefPages/AllCommandes.jsp");
+			    dispatcher.forward(request, response);
+			    break;
+			    
+			case "myOrders":
+			    int chefId0 = Integer.parseInt(request.getParameter("chefId"));
+			    List<Commande>dCommandes = commandeDao.findAssignedCommandes(chefId0);
 
-				request.setAttribute("commandes", commandes3);
-				System.out.println("Nombre de livreurs disponibles: " + livreursDisponibles.size());
+		        
+			    request.setAttribute("commandes", dCommandes);
 
-				dispatcher = request.getRequestDispatcher("/chefPages/AllCommandes.jsp");
+			    dispatcher = request.getRequestDispatcher("/chefPages/MyCommandes.jsp");
+			    dispatcher.forward(request, response);
+			    break;
 
-				dispatcher.forward(request, response);
+			case "startOrder":
+			    int commandeId = Integer.parseInt(request.getParameter("id"));
+			    int chefId = Integer.parseInt(request.getParameter("chefId"));
+			    Commande commande0 = commandeDao.find(commandeId);
+			    if (commande0 != null) {
+			        commande0.setChefid(chefId);
+			        commande0.setStatut("en cour");
+			        commandeDao.update(commande0);
 
-				break;
+			        List<Commande> commandes0 = commandeDao.findAll();
+			        request.setAttribute("commandes", commandes0);
+
+			        RequestDispatcher dispatcher0 = request.getRequestDispatcher("/chefPages/MyCommandes.jsp");
+				    dispatcher0.forward(request, response);
+
+			    } else {
+			        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Commande not found");
+			    }
+			    break;
+            case "finishOrder":
+			    int commandeId0 = Integer.parseInt(request.getParameter("id"));
+			    int chefid = Integer.parseInt(request.getParameter("chefId"));
+
+                Commande commande4 = commandeDao.find(commandeId0);
+                if (commande4 != null && "en cour".equals(commande4.getStatut())) {
+                    commande4.setStatut("prepared");
+                    commandeDao.update(commande4);
+                    
+			        List<Commande> commandes0 = commandeDao.findAssignedCommandes(chefid);
+			        request.setAttribute("commandes", commandes0);
+
+			        RequestDispatcher dispatcher0 = request.getRequestDispatcher("/chefPages/MyCommandes.jsp");
+				    dispatcher0.forward(request, response);
+                }else {
+			        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Commande not found");
+			    }
+                break;
+
+
 //			case "livreuravailable":
 //
 //				LivreurDao livreurDao = new LivreurDao();
@@ -183,6 +229,8 @@ public class CommandeController extends HttpServlet {
 				editCommande(request, response);
 
 				break;
+				
+
 
 			case "delete":
 

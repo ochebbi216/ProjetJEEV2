@@ -1,5 +1,40 @@
-  <!-- partial:partials/_navbar.html -->
+<%@ page import="java.util.List"%>
+<%@ page import="model.Commande"%>
+<%@ page import="dao.CommandeDao"%>
+<%@ page import="util.Hibernate"%>
+  
+<% 
+int totalOrders = 0;
+CommandeDao commandeDao = new CommandeDao();
+totalOrders = commandeDao.findUnassignedCommandes().size(); 
+%>
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, java.io.IOException" %>
+<%
+    String userName = null;  // Initialize the userName variable
+    Cookie[] cookies = request.getCookies();  // Get the array of cookies from the request
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("chefName".equals(cookie.getName())) {
+                userName = cookie.getValue();  // Retrieve userName from cookie
+                break;
+            }
+        }
+    }
 
+%>
+
+<%
+int chefIdValue = 0;
+Cookie[] cookies2 = request.getCookies();
+if (cookies2 != null) {
+	for (Cookie cookie : cookies2) {
+		if ("chefId".equals(cookie.getName())) {
+	chefIdValue = Integer.parseInt(cookie.getValue());
+	break;
+		}
+	}
+}
+%>
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -110,11 +145,30 @@
 
 			        <i class="icon-layout menu-icon"></i>
 
-			        <span class="menu-title">All Orders</span>
+			        <span class="menu-title">Waiting Orders</span>
+			        <span id="cart-count"
+						class="badge bg-info text-white rounded-pill"> <%=totalOrders%></span>
+			        
 
 			    </a>
 
 			</li>
+			
+			<li class="nav-item">
+
+			    <a class="nav-link" href="commande?action=myOrders&chefId=<%=chefIdValue%>">
+
+			        <i class="icon-layout menu-icon"></i>
+
+			        <span class="menu-title">My Orders</span>
+<%-- 			        <span id="cart-count"
+						class="badge bg-info text-white rounded-pill"> <%=totalOrders%></span> --%>
+			        
+
+			    </a>
+
+			</li>
+			
 
 				<li class="nav-item">
 

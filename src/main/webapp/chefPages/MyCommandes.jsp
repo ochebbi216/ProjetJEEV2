@@ -8,12 +8,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-int chefIdValue = 0;
+String chefIdValue = null;
 Cookie[] cookies = request.getCookies();
 if (cookies != null) {
 	for (Cookie cookie : cookies) {
 		if ("chefId".equals(cookie.getName())) {
-	chefIdValue = Integer.parseInt(cookie.getValue());
+	chefIdValue = cookie.getValue();
 	break;
 		}
 	}
@@ -260,7 +260,7 @@ td img {
 												href="commande?action=startOrder&id=${commande.commandeId}&chefId=<%=chefIdValue%>"
 												class="btn btn-outline-primary"> Start Order </a>
 										</c:when>
-<%-- 										<c:when test="${commande.statut eq 'en cour'}">
+										<c:when test="${commande.statut eq 'en cour'}">
 											<a
 												href="commande?action=finishOrder&id=${commande.commandeId}&chefId=<%=chefIdValue%>"
 												class="btn btn-outline-success"> Finish Order </a>
@@ -268,7 +268,7 @@ td img {
 										<c:otherwise>
 											<!-- Optionally show some info about completed orders -->
 											<span>Completed</span>
-										</c:otherwise> --%>
+										</c:otherwise>
 									</c:choose> <%-- 								<select class="form-control">
 
 										<option value="">Select Livreur</option>
