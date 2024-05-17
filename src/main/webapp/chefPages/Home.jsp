@@ -1,43 +1,21 @@
-<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
-
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
 <%
-
     boolean isAuthenticated = false;
-
     Cookie[] cookies = request.getCookies();
-
     if (cookies != null) {
-
         for (Cookie cookie : cookies) {
-
             if ("chefEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
-
                 isAuthenticated = true;
-
                 break;
-
             }
-
         }
-
     }
 
-
-
-    // Redirect to the dashboard if already authenticated
-
-    if (isAuthenticated) {
-
-        response.sendRedirect("../chefPages/Home.jsp"); // Update this with the path to your dashboard page
-
-        return; // Stop further execution of JSP to ensure redirection happens immediately
-
+    if (!isAuthenticated) {
+        response.sendRedirect("chefPages/LoginChef.jsp");  // Redirect to the login page if not authenticated
+        return;
     }
-
-
-
-%>
-
+%> 
 
 
 <!DOCTYPE html>

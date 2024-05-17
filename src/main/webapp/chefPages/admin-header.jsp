@@ -34,7 +34,9 @@ if (cookies2 != null) {
 		}
 	}
 }
+
 %>
+
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -73,7 +75,7 @@ if (cookies2 != null) {
 
           <li class="nav-item dropdown">
 
-              <span class="count"></span>
+              <span class="count"><%= userName %></span>
 
             </a>
 

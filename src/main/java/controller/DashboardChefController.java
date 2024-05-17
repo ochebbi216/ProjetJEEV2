@@ -43,7 +43,7 @@ public class DashboardChefController extends HttpServlet {
 
 //        request.setAttribute("totalCommandes", totalCommandes);
    
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/chefPages/chefDashboard.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("chefPages/chefDashboard.jsp");
         dispatcher.forward(request, response);
     }
       

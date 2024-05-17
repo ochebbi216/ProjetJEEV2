@@ -20,7 +20,6 @@
         return;
     }
 %>
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -196,9 +195,10 @@
 										<h4>${p2.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(p2.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger "><b>Only ${p2.prixBase} DT</b></p> <a
+										<p class=" text-danger "><b>Only ${p2.prixBase} DT</b></p> 
+												<a
 										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${pizza.id}"> <i
+										href="panier?action=add&pizzaId=${p2.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart
 									</a>
 									</a>
@@ -229,9 +229,10 @@
 										<h4>${p3.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(p3.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger "><b>Only ${p3.prixBase} DT</b></p> <a
+										<p class=" text-danger "><b>Only ${p3.prixBase} DT</b></p> 
+										<a
 										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${pizza.id}"> <i
+										href="panier?action=add&pizzaId=${p3.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart
 									</a>
 									</a>
@@ -261,9 +262,11 @@
 										<h4>${p4.nom}</h4>
 
 										<p style="color: gray;">${fn:substring(p4.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-										<p class=" text-danger "> <b>Only ${p4.prixBase} DT</b></p> <a
+										<p class=" text-danger "> <b>Only ${p4.prixBase} DT</b></p> 
+										
+										<a
 										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${pizza.id}"> <i
+										href="panier?action=add&pizzaId=${p4.id}"> <i
 											class="bi-cart-fill me-1"></i> Add to cart
 									</a>
 									</a>

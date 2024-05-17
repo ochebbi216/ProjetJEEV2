@@ -11,58 +11,60 @@ public class Panier {
     @Column(name = "panierId")
     private int panierId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "userId", referencedColumnName = "id")
     @Column(name = "userid")
     private int userid;
 
     @ManyToOne
-    @JoinColumn(name = "commandeId", referencedColumnName = "commandeId")
-    private Commande commande;
-   
-    @Column(name = "pizzaid")
-    private int pizzaid;
+    @JoinColumn(name = "pizzaId", referencedColumnName = "pizzaId")
+    private Pizza pizza;
 
     @Column(name = "quantite")
     private int quantite;
 
-@Column(name = "prixTotal")
+    @Column(name = "prixTotal")
     private float prixTotal;
 
     public Panier() {
-   
     }
 
-    public Panier(int userid, int pizzaid, int quantite, float prixTotal ) {
+    public Panier(int userid, Pizza pizza, int quantite, float prixTotal) {
         this.userid = userid;
-        this.pizzaid = pizzaid;
+        this.pizza = pizza;
         this.quantite = quantite;
         this.prixTotal = prixTotal;
-
     }
 
+    // Getters and Setters
     public int getPanierId() {
         return panierId;
     }
 
-    public int getUserid() {
-return userid;
-}
-
-public void setUserid(int userid) {
-this.userid = userid;
-}
-
-public int getPizzaid() {
-return pizzaid;
-}
-
-public void setPizzaid(int pizzaid) {
-this.pizzaid = pizzaid;
-}
-
-public void setPanierId(int panierId) {
+    public void setPanierId(int panierId) {
         this.panierId = panierId;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public Pizza getPizza() {
+        return pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 
     public float getPrixTotal() {
@@ -72,20 +74,5 @@ public void setPanierId(int panierId) {
     public void setPrixTotal(float prixTotal) {
         this.prixTotal = prixTotal;
     }
-   
-    public int getQuantite() {
-return quantite;
-}
 
-public void setQuantite(int quantite) {
-this.quantite = quantite;
-}
-
-    public Commande getCommande() {
-        return commande;
-    }
-
-    public void setCommande(Commande commande) {
-        this.commande = commande;
-    }
 }

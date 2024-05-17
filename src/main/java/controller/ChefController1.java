@@ -8,7 +8,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 @WebServlet("/chef1")
 public class ChefController1 extends HttpServlet {
 
@@ -58,45 +59,53 @@ public class ChefController1 extends HttpServlet {
         }
     }
        
-        private void loginChef(HttpServletRequest request, HttpServletResponse response) throws IOException{
-            String email = request.getParameter("email");
-            String motDePasse = request.getParameter("motDePasse");
-            Chef chef = chefDao.authenticate(email, motDePasse);
-            if (chef != null) {
-                // Encrypt the email and password before storing them in cookies
-                String nom = chef.getNom();
-                int id = chef.getChefId();
-                String idStr = String.valueOf(id); // Convert int to String
 
 
-                // Create cookies for the encrypted email and password
-                Cookie emailCookie = new Cookie("chefEmail", email);
-                Cookie NameCookie = new Cookie("chefName", nom);
-                Cookie IdCookie = new Cookie("chefId", idStr);
+    private void loginChef(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = request.getParameter("email").trim();
+        String motDePasse = request.getParameter("motDePasse").trim();
 
-                // Set cookie properties
-                emailCookie.setMaxAge(60 * 60 * 24 * 7);  // valid for 7 days
-                NameCookie.setMaxAge(60 * 60 * 24 * 7);
-                IdCookie.setMaxAge(60 * 60 * 24 * 7); // for example, set cookie to expire after 7 days
+        System.out.println("Input Email: " + email);
+        System.out.println("Input Password: " + motDePasse);
 
-                emailCookie.setHttpOnly(true);
-                NameCookie.setHttpOnly(true);
+        Chef chef = chefDao.authenticate(email, motDePasse);
+        if (chef != null) {
+            String nom = chef.getNom();
+            int id = chef.getChefId();
+            String idStr = String.valueOf(id);
 
-                emailCookie.setSecure(true);  // Send only over secure connections
-                NameCookie.setSecure(true);
+            System.out.println("Authenticated Chef Name: " + nom);
+            System.out.println("Chef ID: " + idStr);
 
-                emailCookie.setPath("/");
-                NameCookie.setPath("/");
-                IdCookie.setPath("/"); // available to all paths
-               
-                response.addCookie(IdCookie);
-                response.addCookie(emailCookie);
-                response.addCookie(NameCookie);
-               
-                response.sendRedirect("dashboardchef");
-            } else {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid credentials");
-            };
+            // Create cookies for the email and name (URL encode here)
+            Cookie emailCookie = new Cookie("chefEmail", email);
+            Cookie nameCookie = new Cookie("chefName", nom);
+            Cookie idCookie = new Cookie("chefId", idStr);
+
+            // Set cookie properties
+            emailCookie.setMaxAge(60 * 60 * 24 * 7);  // valid for 7 days
+            nameCookie.setMaxAge(60 * 60 * 24 * 7);
+            idCookie.setMaxAge(60 * 60 * 24 * 7); // for example, set cookie to expire after 7 days
+
+            emailCookie.setHttpOnly(true);
+            nameCookie.setHttpOnly(true);
+
+            emailCookie.setSecure(true);  // Send only over secure connections
+            nameCookie.setSecure(true);
+
+            emailCookie.setPath("/");
+            nameCookie.setPath("/");
+            idCookie.setPath("/"); // available to all paths
+
+            response.addCookie(idCookie);
+            response.addCookie(emailCookie);
+            response.addCookie(nameCookie);
+
+            response.sendRedirect("http://localhost:8080/projetjsp1/commande?action=chefcommandes");
+        } else {
+            System.out.println("Invalid credentials for email: " + email);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid credentials");
+        }
     }
 
         private void logoutChef(HttpServletRequest request, HttpServletResponse response) throws IOException {

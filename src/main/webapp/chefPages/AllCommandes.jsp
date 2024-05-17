@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%@ page
-	import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, java.io.IOException"%>
+ <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse , java.io.IOException"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -18,7 +18,37 @@ if (cookies != null) {
 		}
 	}
 }
+boolean isAuthenticated = false;
+
+
+if (cookies != null) {
+
+	for (Cookie cookie : cookies) {
+
+		if ("chefEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+
+	isAuthenticated = true;
+
+	break;
+
+		}
+
+	}
+
+}
+
+// Redirect to the dashboard if already authenticated
+
+if (!isAuthenticated) {
+
+	response.sendRedirect("chefPages/LoginChef.jsp"); // Update this with the path to your dashboard page
+
+	return; // Stop further execution of JSP to ensure redirection happens immediately
+
+}
 %>
+
+
 
 
 
@@ -217,7 +247,7 @@ td img {
 
 						<tr>
 
-							<th scope="col">Commande ID</th>
+							<th scope="col">pizzas</th>
 
 							<th scope="col">Status</th>
 
@@ -241,8 +271,16 @@ td img {
 
 							<tr>
 
-								<td>${commande.commandeId}</td>
-
+                            <td>
+                                <ul>
+                                    <c:forEach var="pizzaId" items="${fn:split(commande.pizzas, ',')}">
+                                        <li> ${pizzaId}</li>
+                                    </c:forEach>
+                                    <c:if test="${empty commande.pizzas}">
+                                        <li>No pizzas listed</li>
+                                    </c:if>
+                                </ul>
+                            </td>
 								<td>${commande.statut}</td>
 
 								<td><fmt:formatDate value="${commande.dateCommande}"
@@ -260,26 +298,13 @@ td img {
 												href="commande?action=startOrder&id=${commande.commandeId}&chefId=<%=chefIdValue%>"
 												class="btn btn-outline-primary"> Start Order </a>
 										</c:when>
-<%-- 										<c:when test="${commande.statut eq 'en cour'}">
-											<a
-												href="commande?action=finishOrder&id=${commande.commandeId}&chefId=<%=chefIdValue%>"
-												class="btn btn-outline-success"> Finish Order </a>
-										</c:when>
 										<c:otherwise>
-											<!-- Optionally show some info about completed orders -->
-											<span>Completed</span>
-										</c:otherwise> --%>
-									</c:choose> <%-- 								<select class="form-control">
+											<span id="cart-count"
+												class="badge bg-success text-white rounded-pill"> Completed</span>
+										</c:otherwise> 
+									</c:choose>
 
-										<option value="">Select Livreur</option>
 
-										<c:forEach var="livreur" items="${livreursDisponibles}">
-
-											<option value="${livreur.livreurId}">${livreur.nom}</option>
-
-										</c:forEach>
-
-								</select>  --%> <%--    <button type="button" onclick="assignLivreur(this, ${commande.commandeId});" class="btn btn-success">Assign</button> --%>
 
 								</td>
 
@@ -348,7 +373,7 @@ function assignLivreur(buttonElement, commandeId) {
 </script> -->
 
 
-<!-- <script>
+	<!-- <script>
 document.addEventListener("DOMContentLoaded", function() {
     const startButtons = document.querySelectorAll('.btn-outline-primary');
     startButtons.forEach(button => {

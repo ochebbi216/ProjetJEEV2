@@ -1,4 +1,18 @@
-    <!-- partial:partials/_navbar.html -->
+<%@ page import="jakarta.servlet.http.Cookie"%>
+<%@ page import="jakarta.servlet.http.HttpServletRequest"%>
+<%   
+String userName = null;
+Cookie[] cookies = request.getCookies();
+if (cookies != null) {
+    for (Cookie cookie : cookies) {
+        if ("livreurName".equals(cookie.getName())) {
+            userName = cookie.getValue();
+            break;
+        }
+    }
+}
+%>
+
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
 <!--       <img src="path_to_your_logo.png" alt="Pizza Shop Logo" width="100" height="100">
@@ -18,7 +32,7 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
-              <span class="count"></span>
+              <span class="count"><%= userName %></span>
             </a>
 
           <li class="nav-item nav-profile dropdown">
@@ -67,13 +81,6 @@
 			
          	<li class="nav-item">
 			    <a class="nav-link" href="commande?action=livreurcommandes">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">All Commandes</span>
-			    </a>
-			</li>
-			
-			<li class="nav-item">
-			    <a class="nav-link" href="commande?action=LivreurCommande">
 			        <i class="icon-layout menu-icon"></i>
 			        <span class="menu-title">My Commandes</span>
 			    </a>

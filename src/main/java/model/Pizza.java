@@ -32,7 +32,10 @@ public class Pizza {
 
 //	@ManyToMany(mappedBy = "pizzas")
 //	private List<Commande> commandes;
-
+    
+    @OneToMany(mappedBy = "pizza")
+    private List<Panier> paniers;
+    
 	// JPA requires a no-arg constructor
 	public Pizza() {
 	}
@@ -102,5 +105,18 @@ public class Pizza {
 	public void setCategorie(String categorie) {
 		this.categorie = categorie;
 	}
+//    public List<Commande> getCommandes() {
+//        return commandes;
+//    }
+//
+//    public void setCommandes(List<Commande> commandes) {
+//        this.commandes = commandes;
+//    }
+    public List<Panier> getPaniers() {
+        return paniers;
+    }
 
+    public void setPaniers(List<Panier> paniers) {
+        this.paniers = paniers;
+    }
 }

@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
 <%
     boolean isAuthenticated = false;
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie cookie : cookies) {
-            if ("adminEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+            if ("livreurEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
                 isAuthenticated = true;
                 break;
             }
@@ -13,10 +13,10 @@
     }
 
     if (!isAuthenticated) {
-        response.sendRedirect("adminPages/AddAdmin.jsp");  // Redirect to the login page if not authenticated
+        response.sendRedirect("livreurPages/LoginLivreur.jsp");  // Redirect to the login page if not authenticated
         return;
     }
-%> --%>
+%> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +24,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title> Admin</title>
+  <title> Dashboard Livreur</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="admin/vendors/feather/feather.css">
   <link rel="stylesheet" href="admin/vendors/ti-icons/css/themify-icons.css">

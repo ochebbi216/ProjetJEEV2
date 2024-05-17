@@ -21,7 +21,7 @@
             <h4>Reservations</h4>
             <p>
               <strong>Phone:</strong> +216 70 748 223<br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>Email:</strong> info@pizzashop.com<br>
             </p>
           </div>
         </div>
@@ -31,8 +31,8 @@
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
+              <strong>Mon-Sun: 11AM</strong> - 23PM<br>
+              
             </p>
           </div>
         </div>
@@ -52,7 +52,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Pizza Shop</span></strong>. All Rights Reserved
       </div>
 
 

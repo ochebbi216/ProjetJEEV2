@@ -1,3 +1,17 @@
+<%@ page import="jakarta.servlet.http.Cookie"%>
+<%@ page import="jakarta.servlet.http.HttpServletRequest"%>
+<%   
+String userName = null;
+Cookie[] cookies = request.getCookies();
+if (cookies != null) {
+    for (Cookie cookie : cookies) {
+        if ("adminName".equals(cookie.getName())) {
+            userName = cookie.getValue();
+            break;
+        }
+    }
+}
+%>
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -18,7 +32,7 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
-              <span class="count"></span>
+              <span class="count"><%= userName %></span>
             </a>
 
           <li class="nav-item nav-profile dropdown">

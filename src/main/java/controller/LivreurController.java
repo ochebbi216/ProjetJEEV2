@@ -18,6 +18,7 @@ public class LivreurController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+
         if (action != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             Livreur livreur = livreurDao.find(id);

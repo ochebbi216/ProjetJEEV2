@@ -22,6 +22,14 @@ public class PizzaDao {
             throw new RuntimeException("Failed to find pizza with ID: " + id, e);
         }
     }
+    public List<Pizza> findPizzasWithCommandes() {
+        try (Session session = openSession()) {
+            return session.createQuery("SELECT DISTINCT p FROM Pizza p LEFT JOIN FETCH p.commandes", Pizza.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch pizzas with commandes", e);
+        }
+    }
 
     public void save(Pizza pizza) {
         Transaction tx = null;

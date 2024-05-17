@@ -131,27 +131,36 @@ public class PanierController extends HttpServlet {
 
     
     private void addPanier(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+        int userid = 0; // Initialize the userId variable
+        Cookie[] cookies = request.getCookies(); // Get the array of cookies from the request
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    userid = Integer.parseInt(cookie.getValue()); // Retrieve userId from cookie
+                    break;
+                }
+            }
+        }
+        int clientId = userid; // Example user ID, you might want to dynamically fetch this from session or other means
+        int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
+        int quantity = request.getParameter("qte") != null ? Integer.parseInt(request.getParameter("qte")) : 1; // Get the quantity, default to 1 if not provided
+        Pizza pizza = pizzaDao.find(pizzaId); // Fetch the Pizza entity
 
-      int clientId = 1; // Client ID
-      int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
-      Pizza p=pizzaDao.find(pizzaId);
-      Panier p1=panierDao.find(pizzaId);
-      if(p1!=null) {
-          p1.setQuantite(p1.getQuantite() + 1);
-          p1.setPrixTotal(p.getPrixBase() * p1.getQuantite());   
-          panierDao.update(p1);
-
-      }
-      else {
-          
-          Panier panier = new Panier(clientId, pizzaId, 1, p.getPrixBase());
-           panierDao.save(panier);
-      }
-
-
-      response.sendRedirect("panier");
-  }
+        if (pizza != null) {
+            Panier existingPanier = panierDao.findByPizzaAndUserId(pizza, clientId);
+            if (existingPanier != null) {
+                existingPanier.setQuantite(existingPanier.getQuantite() + quantity);
+                existingPanier.setPrixTotal(pizza.getPrixBase() * existingPanier.getQuantite());
+                panierDao.update(existingPanier);
+            } else {
+                Panier newPanier = new Panier(clientId, pizza, quantity, pizza.getPrixBase() * quantity);
+                panierDao.save(newPanier);
+            }
+            response.sendRedirect("panier");
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pizza not found");
+        }
+    }
 
     private void editPanier(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int panierId = Integer.parseInt(request.getParameter("panierId"));

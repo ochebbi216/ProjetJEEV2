@@ -1,5 +1,4 @@
-<%-- <%@ page
-	import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse"%>
+ <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse"%>
 
 <%
 boolean isAuthenticated = false;
@@ -31,7 +30,7 @@ if (isAuthenticated) {
 	return; // Stop further execution of JSP to ensure redirection happens immediately
 
 }
-%> --%>
+%> 
 
 
 

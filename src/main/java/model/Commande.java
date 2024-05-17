@@ -7,147 +7,148 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Commande")
 public class Commande {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "commandeId")
-	private int commandeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "commandeId")
+    private int commandeId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "userId", referencedColumnName = "id")
-//    private User user;
+    @Column(name = "userid")
+    private int userid;
 
-	@Column(name = "userid")
-	private int userid;
+    @Column(name = "chefid")
+    private Integer chefid;
+    
+    @Column(name = "pizzas")
+    private String pizzas; 
 
-	@Column(name = "chefid")
-	private Integer chefid;
+    @Column(name = "livreurid")
+    private Integer livreurid;
 
-	@Column(name = "livreurid")
-	private Integer livreurid;
+    @Column(name = "statut")
+    private String statut;
 
-	@Column(name = "statut")
-	private String statut;
+    @Column(name = "dateCommande")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCommande;
 
-	@Column(name = "dateCommande")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateCommande;
+    @Column(name = "adresseLivraison")
+    private String adresseLivraison;
 
-	@Column(name = "adresseLivraison")
-	private String adresseLivraison;
+    @Column(name = "numTel")
+    private String numTel;
 
-	@Column(name = "numTel")
-	private String numTel;
+    @Column(name = "prixTotal")
+    private float prixTotal;
 
-	@Column(name = "prixTotal")
-	private float prixTotal;
+//    @Column(name = "pizzas")
+//    private String pizzas; // Comma-separated pizza IDs
 
-	// One-to-many relationship with Panier
-	@OneToMany(mappedBy = "commande")
-	private List<Panier> paniers;
+    // One-to-many relationship with Panier
+//    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+//    private List<Panier> paniers;
 
-	// Constructor without commandeId as it's auto-generated
-	public Commande(int userid, String statut, Date dateCommande, String numTel, String adresseLivraison,
-			float prixTotal) {
-		this.userid = userid;
-		this.statut = statut;
-		this.dateCommande = dateCommande;
-		this.adresseLivraison = adresseLivraison;
-		this.prixTotal = prixTotal;
-		this.numTel = numTel;
-//        this.pizzas = pizzas;
-	}
+    // Constructor without commandeId as it's auto-generated
+    public Commande(int userid,String pizzas, String statut, Date dateCommande, String numTel, String adresseLivraison, float prixTotal) {
+        this.userid = userid;
+        this.pizzas = pizzas;
+        this.statut = statut;
+        this.dateCommande = dateCommande;
+        this.adresseLivraison = adresseLivraison;
+        this.prixTotal = prixTotal;
+        this.numTel = numTel;
 
-	public Commande() {
-		super();
-// TODO Auto-generated constructor stub
-	}
+    }
 
-// Getters and setters
-	public int getCommandeId() {
-		return commandeId;
-	}
+    public Commande() {
+        super();
+    }
 
-	public String getNumTel() {
-		return numTel;
-	}
+    // Getters and setters
+    public int getCommandeId() {
+        return commandeId;
+    }
 
-	public int getUserid() {
-		return userid;
-	}
+    public String getNumTel() {
+        return numTel;
+    }
 
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
+    public int getUserid() {
+        return userid;
+    }
 
-	public Integer getChefid() {
-		return chefid;
-	}
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
-	public void setChefid(Integer chefid) {
-		this.chefid = chefid;
-	}
+    public Integer getChefid() {
+        return chefid;
+    }
 
-	public Integer getLivreurid() {
-		return livreurid;
-	}
+    public void setChefid(Integer chefid) {
+        this.chefid = chefid;
+    }
 
-	public void setLivreurid(Integer livreurid) {
-		this.livreurid = livreurid;
-	}
+    public Integer getLivreurid() {
+        return livreurid;
+    }
 
-	public void setNumTel(String numTel) {
-		this.numTel = numTel;
-	}
+    public void setLivreurid(Integer livreurid) {
+        this.livreurid = livreurid;
+    }
 
-	public void setCommandeId(int commandeId) {
-		this.commandeId = commandeId;
-	}
+    public void setNumTel(String numTel) {
+        this.numTel = numTel;
+    }
 
-//    public User getUser() {
-//        return user;
+    public void setCommandeId(int commandeId) {
+        this.commandeId = commandeId;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public Date getDateCommande() {
+        return dateCommande;
+    }
+
+    public void setDateCommande(Date dateCommande) {
+        this.dateCommande = dateCommande;
+    }
+
+    public String getAdresseLivraison() {
+        return adresseLivraison;
+    }
+
+    public void setAdresseLivraison(String adresseLivraison) {
+        this.adresseLivraison = adresseLivraison;
+    }
+
+    public float getPrixTotal() {
+        return prixTotal;
+    }
+
+    public void setPrixTotal(float prixTotal) {
+        this.prixTotal = prixTotal;
+    }
+
+    public String getPizzas() {
+        return pizzas;
+    }
+
+    public void setPizzas(String pizzas) {
+        this.pizzas = pizzas;
+    }
+
+//    public List<Panier> getPaniers() {
+//        return paniers;
 //    }
 //
-//    public void setUser(User user) {
-//        this.user = user;
+//    public void setPaniers(List<Panier> paniers) {
+//        this.paniers = paniers;
 //    }
-
-	public String getStatut() {
-		return statut;
-	}
-
-	public void setStatut(String statut) {
-		this.statut = statut;
-	}
-
-	public Date getDateCommande() {
-		return dateCommande;
-	}
-
-	public void setDateCommande(Date dateCommande) {
-		this.dateCommande = dateCommande;
-	}
-
-	public String getAdresseLivraison() {
-		return adresseLivraison;
-	}
-
-	public void setAdresseLivraison(String adresseLivraison) {
-		this.adresseLivraison = adresseLivraison;
-	}
-
-	public float getPrixTotal() {
-		return prixTotal;
-	}
-
-	public void setPrixTotal(float prixTotal) {
-		this.prixTotal = prixTotal;
-	}
-
-	public List<Panier> getPaniers() {
-		return paniers;
-	}
-
-	public void setPaniers(List<Panier> paniers) {
-		this.paniers = paniers;
-	}
 }
