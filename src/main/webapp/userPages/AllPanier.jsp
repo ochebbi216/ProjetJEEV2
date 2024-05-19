@@ -92,16 +92,23 @@ request.setAttribute("userId", userId);
 								<c:forEach var="panier" items="${paniers}">
 									<c:if test="${panier.userid == userId}">
 										<tr>
-											<td><img src="${panier.pizza.image}"
+											<td><img style="margin-bottom:25px;" src="${panier.pizza.image}"
 												alt="${panier.pizza.nom}" width=100 height=80 /></td>
 											<td><br> ${panier.pizza.nom}</td>
 											<td><br> <c:out value="x ${panier.quantite}" /></td>
 											<td><br><c:out value="${panier.prixTotal} DT" /></td>
 											<td><br>
-												<button class="btn btn-outline-danger"
+												<button  class="btn "
 													onclick="deletePanier(${panier.panierId});">
-													<i class="fa-solid fa-trash"></i>
-												</button>
+													<script src="https://cdn.lordicon.com/lordicon.js"></script>
+													<lord-icon style="margin-bottom:15px;"
+													    src="https://cdn.lordicon.com/drxwpfop.json"
+													    trigger="hover"
+													    colors="primary:#e83a30,secondary:#545454"
+													    style="width:35px;height:35px">
+													</lord-icon>
+<!-- 													<i class="fa-solid fa-trash"></i>
+ -->												</button>
 											</td>
 										</tr>
 									</c:if>
@@ -131,7 +138,9 @@ request.setAttribute("userId", userId);
 		<br>
 		<button type="button" class="btn btn-primary" onclick="submitOrder();"
 			style="float: right;">
-			<i class="fa-solid fa-dolly"></i> Order All Now!
+			<i class="fa-solid fa-dolly"></i> 
+			
+			Order All Now!
 		</button>
 		<a class="btn btn-outline-danger" href="pizza?action=menu"><i
 			class="fa-solid fa-pizza-slice"></i> Still Hungry?</a>

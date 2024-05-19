@@ -62,10 +62,10 @@ if (cookies != null) {
                 <li><a href="#events">Delivery</a></li>
                 <li><a href="#chefs">Chefs</a></li>
                 <li><a href="/projetjsp1/panier">
-                    Cart <span id="cart-count" class="badge bg-info rounded-pill"><%= totalCarts %></span>
+                    Cart &nbsp;<span id="cart-count" class="badge bg-info rounded-pill"> <%= totalCarts %></span>
                 </a></li>
                 <li><a href="/projetjsp1/commande">
-                    Orders <span id="order-count" class="badge bg-success rounded-pill"><%= totalOrders %></span>
+                    Orders &nbsp;<span id="order-count" class="badge bg-success rounded-pill"><%= totalOrders %></span>
                 </a></li>
             </ul>
         </nav>

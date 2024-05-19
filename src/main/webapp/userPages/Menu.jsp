@@ -163,12 +163,12 @@
 										<p style="color: gray;">${fn:substring(pizza.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
 										<p class=" text-danger "><b> Only ${pizza.prixBase} DT</b></p> 
 										<a
-										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${pizza.id}"> <i
-											class="bi-cart-fill me-1"></i> Add to cart
+										class="btn btn-outline-danger " type="button"
+										href="panier?action=add&pizzaId=${pizza.id}"> 
+										<img src="assets\wired-outline-146-trolley.gif" width=30 height=30 />
+										 Add to cart
 									</a>
 									</a>
-
 
 								</div>
 
@@ -197,9 +197,10 @@
 										<p style="color: gray;">${fn:substring(p2.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
 										<p class=" text-danger "><b>Only ${p2.prixBase} DT</b></p> 
 												<a
-										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${p2.id}"> <i
-											class="bi-cart-fill me-1"></i> Add to cart
+										class="btn btn-outline-danger " type="button"
+										href="panier?action=add&pizzaId=${p2.id}"> 
+										<img src="assets\wired-outline-146-trolley.gif" width=30 height=30 />
+											Add to cart
 									</a>
 									</a>
 
@@ -231,9 +232,10 @@
 										<p style="color: gray;">${fn:substring(p3.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
 										<p class=" text-danger "><b>Only ${p3.prixBase} DT</b></p> 
 										<a
-										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${p3.id}"> <i
-											class="bi-cart-fill me-1"></i> Add to cart
+										class="btn btn-outline-danger " type="button"
+										href="panier?action=add&pizzaId=${p3.id}"> 
+										<img src="assets\wired-outline-146-trolley.gif" width=30 height=30 />
+											Add to cart
 									</a>
 									</a>
 
@@ -265,9 +267,10 @@
 										<p class=" text-danger "> <b>Only ${p4.prixBase} DT</b></p> 
 										
 										<a
-										class="btn btn-outline-dark " type="button"
-										href="panier?action=add&pizzaId=${p4.id}"> <i
-											class="bi-cart-fill me-1"></i> Add to cart
+										class="btn btn-outline-danger " type="button"
+										href="panier?action=add&pizzaId=${p4.id}"> 
+										<img src="assets\wired-outline-146-trolley.gif" width=30 height=30 />
+											Add to cart
 									</a>
 									</a>
 								</div>
