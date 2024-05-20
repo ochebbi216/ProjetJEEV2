@@ -109,7 +109,11 @@
             <label for="image">Image:</label>
             <input type="text" class="form-control" id="image" name="image" value="${pizza.image}" required>
         </div>
-
+		<div class="form-group">
+		    <label for="discountPercentage">Discount Percentage:</label>
+		    <input type="text" class="form-control" id="discountPercentage" name="discountPercentage" value="${pizza.discountPercentage}" required>
+		    <div class="invalid-feedback">Please provide the discount percentage.</div>
+		</div>
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Update Pizza</button>
             &nbsp;&nbsp;

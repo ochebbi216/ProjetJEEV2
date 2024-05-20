@@ -29,6 +29,9 @@ public class Pizza {
 
 	@Column(name = "image")
 	private String image;
+	@Column(name = "discountPercentage")
+	private float discountPercentage = 0;
+
 
 //	@ManyToMany(mappedBy = "pizzas")
 //	private List<Commande> commandes;
@@ -119,4 +122,11 @@ public class Pizza {
     public void setPaniers(List<Panier> paniers) {
         this.paniers = paniers;
     }
+	public float getDiscountPercentage() {
+	    return discountPercentage;
+	}
+
+	public void setDiscountPercentage(float discountPercentage) {
+	    this.discountPercentage = discountPercentage;
+	}
 }

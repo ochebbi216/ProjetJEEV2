@@ -102,6 +102,7 @@ public class PizzaController extends HttpServlet {
         String taille = request.getParameter("taille");
         String description = request.getParameter("description");
         float prixBase = Float.parseFloat(request.getParameter("prixBase"));
+        float discountPercentage = Float.parseFloat(request.getParameter("discountPercentage"));
         String image = request.getParameter("image");
 
         Pizza pizza = pizzaDao.find(id);
@@ -111,6 +112,7 @@ public class PizzaController extends HttpServlet {
             pizza.setTaille(taille);
             pizza.setDescription(description);
             pizza.setPrixBase(prixBase);
+            pizza.setDiscountPercentage(discountPercentage);
             pizza.setImage(image);
             pizzaDao.update(pizza);
             response.sendRedirect("pizza");
