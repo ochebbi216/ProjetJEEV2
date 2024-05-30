@@ -17,6 +17,9 @@ public class User {
 	 @Column(name = "prenom")
 	 private String prenom;
 
+	@Column(name = "loyalty_points")
+	 private int loyaltyPoints =0;
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -56,6 +59,14 @@ public class User {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	
+	 public int getLoyaltyPoints() {
+		return loyaltyPoints;
+	}
+
+	public void setLoyaltyPoints(int loyaltyPoints) {
+		this.loyaltyPoints = loyaltyPoints;
 	}
 	@Override
 	public String toString() {

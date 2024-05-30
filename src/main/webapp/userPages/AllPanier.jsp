@@ -121,12 +121,17 @@ request.setAttribute("userId", userId);
             </div>
         </div>
         <br>
-        <button type="button" class="btn btn-primary" onclick="submitOrder();" style="float: right;">
+                <a class="btn btn-outline-danger" href="pizza?action=menu"><i class="fa-solid fa-pizza-slice"></i> Still Hungry?</a>
+        
+          <button type="button" class="btn btn-primary" onclick="submitOrder();" style="margin-left: 58%;">
             <i class="fa-solid fa-dolly"></i> 
-            
             Order All Now!
         </button>
-        <a class="btn btn-outline-danger" href="pizza?action=menu"><i class="fa-solid fa-pizza-slice"></i> Still Hungry?</a>
+         &nbsp;&nbsp;&nbsp;&nbsp; OR
+        <button type="button" class="btn btn-primary" onclick="submitOrder1();" style="float: right;">
+            <i class="fa-regular fa-star"></i>            
+			Buy with Points!
+        </button>
     </main>
     <br>
     <br>
@@ -157,6 +162,36 @@ function deletePanier(panierId) {
         form.appendChild(idInput);
         form.submit();
     }
+}
+
+function submitOrder1() {
+    var cartItems = document.querySelectorAll('tr[data-panier-id]');
+    var cartData = Array.from(cartItems).map(item => {
+        return {
+            panierId: item.getAttribute('data-panier-id'),
+            prixTotal: item.getAttribute('data-prix-total')
+        };
+    });
+    var numTel = document.getElementById('numTel').value;
+    var adresseLivraison = document.getElementById('adresseLivraison').value;
+    fetch('commande?action=add1', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            cartItems: cartData,
+            numTel: numTel,
+            adresseLivraison: adresseLivraison
+        })
+    }).then(response => response.json())
+      .then(data => {
+          alert('Order successfully placed!');
+          // Reload or redirect to a confirmation page
+      }).catch(error => {
+          console.error('Error:', error);
+          alert('Failed to place order');
+      });
 }
 function submitOrder() {
     var cartItems = document.querySelectorAll('tr[data-panier-id]');

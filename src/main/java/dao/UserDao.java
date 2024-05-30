@@ -104,4 +104,36 @@ public class UserDao {
             throw new RuntimeException("Failed to fetch all users", e);
         }
     }
+    
+    public void addLoyaltyPoints(int userId, int points) {
+        Transaction tx = null;
+        try (Session session = openSession()) {
+            tx = session.beginTransaction();
+            User user = session.get(User.class, userId);
+            if (user != null) {
+                user.setLoyaltyPoints(user.getLoyaltyPoints() + points);
+                session.persist(user);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+            throw new RuntimeException("Failed to add loyalty points to user with ID: " + userId, e);
+        }
+    }
+    
+    public int findAllPointsByUserId(int userId) {
+        try (Session session = Hibernate.getSessionFactory().openSession()) {
+            User user = session.get(User.class, userId);
+            if (user != null) {
+                return user.getLoyaltyPoints();
+            } else {
+                throw new RuntimeException("User not found with ID: " + userId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch loyalty points for user ID: " + userId, e);
+        }
+    }
+
 }

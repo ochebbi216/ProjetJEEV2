@@ -3,15 +3,18 @@
 <%@ page import="model.Commande"%>
 <%@ page import="dao.PanierDao"%>
 <%@ page import="dao.CommandeDao"%>
+<%@ page import="dao.UserDao"%>
 <%@ page import="jakarta.servlet.http.Cookie"%>
 <%@ page import="jakarta.servlet.http.HttpServletRequest"%>
 
 <%
 PanierDao panierDao = new PanierDao();
 CommandeDao commandeDao = new CommandeDao();
+UserDao userDao = new UserDao();
 
 int totalCarts = 0;
 int totalOrders = 0;
+int totalPoints = 0;
 int userId = -1;
 
 // Retrieve userId from cookies
@@ -29,6 +32,7 @@ if (userId != -1) {
     try {
         totalCarts = panierDao.findAllByUserId(userId).size();
         totalOrders = commandeDao.findAllByUserId(userId).size();
+        totalPoints = userDao.findAllPointsByUserId(userId);
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -66,6 +70,9 @@ if (cookies != null) {
                 </a></li>
                 <li><a href="/projetjsp1/commande">
                     Orders &nbsp;<span id="order-count" class="badge bg-success rounded-pill"><%= totalOrders %></span>
+                </a></li>
+                <li><a href="#">
+                    Points &nbsp;<span id="points-count" class="badge bg-warning rounded-pill"><%= totalPoints %></span>
                 </a></li>
             </ul>
         </nav>

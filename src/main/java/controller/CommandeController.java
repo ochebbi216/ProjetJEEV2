@@ -12,6 +12,7 @@ import dao.CommandeDao;
 import dao.LivreurDao;
 import dao.PanierDao;
 import dao.PizzaDao;
+import dao.UserDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,10 +23,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Commande;
 import model.Livreur;
 import model.Panier;
+import model.Pizza;
+import model.User;
 
 @WebServlet("/commande")
 
 public class CommandeController extends HttpServlet {
+	
 
 	private CommandeDao commandeDao;
 
@@ -34,6 +38,7 @@ public class CommandeController extends HttpServlet {
 	private PizzaDao pizzaDao;
 
 	private LivreurDao livreurDao;
+	private UserDao userDao;
 
 	public void init() {
 
@@ -42,6 +47,7 @@ public class CommandeController extends HttpServlet {
 		panierDao = new PanierDao();
 
 		pizzaDao = new PizzaDao();
+		userDao =new UserDao();
 
 		livreurDao = new LivreurDao(); // Initialize the LivreurDao
 
@@ -64,15 +70,17 @@ public class CommandeController extends HttpServlet {
 				}
 			}
 		}
-	       if (livreurId == null) {
-	            response.sendRedirect("livreurPages/LoginLivreur.jsp");
-	            return;
-	        }
+	  
 		if (action != null) {
 
 			switch (action) {
 
 			case "add":
+
+				doPost(request, response);
+
+				return;
+			case "add1":
 
 				doPost(request, response);
 
@@ -231,6 +239,9 @@ public class CommandeController extends HttpServlet {
 			case "add":
 				addCommande(request, response);
 				break;
+			case "add1":
+				addCommande1(request, response);
+				break;
 			case "edit":
 				editCommande(request, response);
 				break;
@@ -260,6 +271,8 @@ public class CommandeController extends HttpServlet {
 					break;
 				}
 			}
+			
+		
 		}
 		response.setContentType("application/json");
 		Gson gson = new Gson();
@@ -283,6 +296,9 @@ public class CommandeController extends HttpServlet {
 				pizzasStringBuilder.append(panier.getPizza().getNom()).append(" x ").append(panier.getQuantite())
 						.append(", ");
 			}
+			
+		    int loyaltyPoints = calculateLoyaltyPoints(prixTotal);
+	        userDao.addLoyaltyPoints(userId, loyaltyPoints);
 			// Remove the trailing comma and space
 			String pizzasString = pizzasStringBuilder.substring(0, pizzasStringBuilder.length() - 2);
 			panierDao.deleteAllByUserId(userId);
@@ -295,8 +311,84 @@ public class CommandeController extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().write(gson.toJson(e.getMessage()));
 		}
+		
+		
+    
 	}
 
+	
+	private void addCommande1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    int userid = 0; // Initialize the userName variable
+	    Cookie[] cookies = request.getCookies(); // Get the array of cookies from the request
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if ("userId".equals(cookie.getName())) {
+	                userid = Integer.parseInt(cookie.getValue()); // Retrieve userName from cookie
+	                break;
+	            }
+	        }
+	    }
+
+	    response.setContentType("application/json");
+	    Gson gson = new Gson();
+	    BufferedReader reader = request.getReader();
+	    JsonObject json = gson.fromJson(reader, JsonObject.class);
+	    int userId = userid; // Example, should come from session or decoded from request
+	    String numTel = json.get("numTel").getAsString();
+	    String adresseLivraison = json.get("adresseLivraison").getAsString();
+
+	    try {
+	        List<Panier> cartItems = panierDao.findAllByUserId(userId);
+	        if (cartItems == null || cartItems.isEmpty()) {
+	            throw new IllegalArgumentException("No cart items found for the user.");
+	        }
+
+	        float prixTotal = 0f;
+	        for (Panier panier : cartItems) {
+	            Pizza pizza = panier.getPizza();
+	            float prixRemise = pizza.getPrixBase() * (1 - pizza.getDiscountPercentage() / 100);
+	            prixTotal += prixRemise * panier.getQuantite();
+	        }
+
+	        // Récupérer les points de fidélité de l'utilisateur
+	        User user = userDao.find(userId);
+	        int loyaltyPoints = user.getLoyaltyPoints();
+	        float discount = 0f;
+	        float prix2 = prixTotal;
+
+	        // Calculer la réduction basée sur les points de fidélité
+	        if (loyaltyPoints > 0) {
+	            discount = Math.min(prixTotal, loyaltyPoints * 0.1f); // Supposons que chaque point vaut 0.1 DT
+	            prix2 = prixTotal - discount;
+	            System.out.println("prixTotal avant réduction=" + prixTotal);
+	            System.out.println("réduction appliquée=" + discount);
+	            System.out.println("prixTotal après réduction=" + prix2);
+	            user.setLoyaltyPoints(loyaltyPoints - (int) (discount / 0.1f)); // Déduire les points utilisés
+	            userDao.update(user);
+	        }
+
+	        // Build the pizza string with quantities
+	        StringBuilder pizzasStringBuilder = new StringBuilder();
+	        for (Panier panier : cartItems) {
+	            pizzasStringBuilder.append(panier.getPizza().getNom()).append(" x ").append(panier.getQuantite()).append(", ");
+	        }
+
+	        // Remove the trailing comma and space
+	        String pizzasString = pizzasStringBuilder.substring(0, pizzasStringBuilder.length() - 2);
+	        panierDao.deleteAllByUserId(userId);
+
+	        // Ajouter des nouveaux points de fidélité
+	        int newLoyaltyPoints = calculateLoyaltyPoints(prix2);
+	        userDao.addLoyaltyPoints(userId, newLoyaltyPoints);
+
+	        Commande newCommande = new Commande(userId, pizzasString, "en attente", new Date(), numTel, adresseLivraison, prix2);
+	        commandeDao.saveCommandeWithItems(newCommande);
+	        response.getWriter().write(gson.toJson("Order placed successfully!"));
+	    } catch (Exception e) {
+	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        response.getWriter().write(gson.toJson(e.getMessage()));
+	    }
+	}
 	 private void updateCommandeStatus(HttpServletRequest request, HttpServletResponse response, String newStatus) throws IOException {
 	        int commandeId = Integer.parseInt(request.getParameter("commandeId"));
 	        Commande commande = commandeDao.find(commandeId);
@@ -332,6 +424,8 @@ public class CommandeController extends HttpServlet {
 	            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Commande not found");
 	        }
 	    }
+	    
+	    
 
 	private void assignLivreurAjax(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int commandeId = Integer.parseInt(request.getParameter("commandeId"));
@@ -415,6 +509,16 @@ public class CommandeController extends HttpServlet {
 		response.sendRedirect("commande");
 
 	}
+	
+	private int calculateLoyaltyPoints(float prixTotal) {
+	    int points = 0;
+	    if (prixTotal > 40) {
+
+	        points = (int) (prixTotal * 0.03); // 3% of 40 DT is 1.2, but since we're adding points, we use 3 points per 40 DT
+	    }
+	    return points;
+	}
+
 
 	private void deleteCommande(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -435,5 +539,9 @@ public class CommandeController extends HttpServlet {
 		}
 
 	}
+	
+	
+	
+	
 
 }

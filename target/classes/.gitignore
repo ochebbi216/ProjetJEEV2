@@ -1,5 +1,4 @@
 /controller/
-/dao/
-/hibernate.cfg.xml
 /model/
+/dao/
 /util/
