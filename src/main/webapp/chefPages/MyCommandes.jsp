@@ -82,6 +82,8 @@ if (cookies != null) {
     <div class="main-panel">
         <div class="content-wrapper">
             <h1 class="header">My Orders</h1>
+                    <div class="table-responsive">
+            
             <table class="table table-striped">
                 <thead class="thead-dark">
                 <tr>
@@ -118,6 +120,7 @@ if (cookies != null) {
                 </c:forEach>
                 </tbody>
             </table>
+            </div>
         </div>
         <jsp:include page="admin-footer.jsp"/>
     </div>

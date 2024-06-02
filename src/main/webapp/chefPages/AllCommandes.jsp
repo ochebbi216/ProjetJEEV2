@@ -240,6 +240,7 @@ td img {
  -->
 
 
+        <div class="table-responsive">
 
 				<table class="table table-striped">
 
@@ -255,8 +256,8 @@ td img {
 
 							<th scope="col">Delivery Address</th>
 
-							<th scope="col">Phone Number</th>
-
+ 							<th scope="col">Phone Number</th>
+ 
 							<th scope="col">Total Price</th>
 
 							<th scope="col">Actions</th>
@@ -288,7 +289,7 @@ td img {
 
 								<td>${commande.adresseLivraison}</td>
 
-								<td>${commande.numTel}</td>
+ 								<td>${commande.numTel}</td>
 
 								<td>${commande.prixTotal}DT</td>
 
@@ -315,7 +316,7 @@ td img {
 					</tbody>
 
 				</table>
-
+</div>
 
 
 			</div>

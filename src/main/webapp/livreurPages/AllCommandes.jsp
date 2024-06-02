@@ -67,6 +67,8 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <h1 class="header">List of Available Orders</h1>
+                        <div class="table-responsive">
+                
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
@@ -114,6 +116,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                </div>
             </div>
             <jsp:include page="livreur-footer.jsp" />
         </div>

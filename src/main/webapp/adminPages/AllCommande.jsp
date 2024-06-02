@@ -79,8 +79,9 @@
         <div class="content-wrapper">
 
         <h1 class="header">List of orders</h1>
+        <div class="table-responsive">
         
-       <table class="table table-striped">
+       <table class="table table-striped" >
           <thead class="thead-dark">
             <tr>
               <th scope="col">Pizzas</th>
@@ -117,6 +118,7 @@
             </c:forEach>
           </tbody>
         </table>
+        </div>
 
 
 <!--         <a href="/projetjsp1/AddPizza.jsp" class="btn btn-success">Add New Pizza</a>

@@ -55,6 +55,8 @@ request.setAttribute("userId", userId);
 	<div class="main-panel container">
 		<div class="content-wrapper">
 			<h1 class="header text-center">List of Orders</h1>
+			        <div class="table-responsive">
+			
 			<table class="table table-striped table-bordered">
 				<thead class="thead-dark">
 					<tr>
@@ -102,6 +104,7 @@ request.setAttribute("userId", userId);
 					</c:choose>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 	<br>

@@ -79,6 +79,7 @@
 
         <h1 class="header">List of Available Pizzas</h1>
             <a href="/projetjsp1/AddPizza.jsp" class="btn btn-success"> <i class="fas fa-add"></i> Add New Pizza</a>
+                <div class="table-responsive">
         
        <table class="table table-striped">
     <thead class="thead-dark">
@@ -116,6 +117,7 @@
         </c:forEach>
     </tbody>
 </table>
+</div>
 
 <!--         <a href="/projetjsp1/AddPizza.jsp" class="btn btn-success">Add New Pizza</a>
  -->
