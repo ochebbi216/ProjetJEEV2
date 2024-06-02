@@ -76,7 +76,7 @@ if (cookies != null) {
                 </a></li>
             </ul>
         </nav>
-        <span>Dear <i><%= userName %></i></span>
+        <span>Dear: <i><%= userName %></i></span>
         <a class="btn-book-a-table" href="http://localhost:8080/projetjsp1/User?action=logout">Logout</a>
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

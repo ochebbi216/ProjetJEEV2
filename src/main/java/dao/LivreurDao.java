@@ -181,5 +181,15 @@ public class LivreurDao {
             throw new RuntimeException("Authentication failed", e);
         }
     }
+	public String findNomById(int id) {
+	    try (Session session = openSession()) {
+	        Livreur livreur = session.get(Livreur.class, id);
+	        return livreur != null ? livreur.getNom() : null;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("Failed to find Livreur with ID: " + id, e);
+	    }
+	}
+
 
 }

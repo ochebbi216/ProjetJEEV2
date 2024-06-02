@@ -1,12 +1,15 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
 import model.Commande;
-import model.User;
 import util.Hibernate;
 
 public class CommandeDao {
@@ -147,6 +150,37 @@ public class CommandeDao {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to fetch commandes for livreurId: " + livreurId, e);
+        }
+    }
+    
+    public Map<String, Object> findAllWithNames() {
+        try (Session session = openSession()) {
+            List<Commande> commandes = session.createQuery("FROM Commande ORDER BY dateCommande DESC", Commande.class).list();
+
+            LivreurDao livreurDao = new LivreurDao();
+            ChefDao chefDao = new ChefDao();
+
+            Map<Integer, String> livreurNames = new HashMap<>();
+            Map<Integer, String> chefNames = new HashMap<>();
+
+            for (Commande commande : commandes) {
+                if (commande.getLivreurid() != null && !livreurNames.containsKey(commande.getLivreurid())) {
+                    livreurNames.put(commande.getLivreurid(), livreurDao.findNomById(commande.getLivreurid()));
+                }
+                if (commande.getChefid() != null && !chefNames.containsKey(commande.getChefid())) {
+                    chefNames.put(commande.getChefid(), chefDao.findNomById(commande.getChefid()));
+                }
+            }
+
+            Map<String, Object> result = new HashMap<>();
+            result.put("commandes", commandes);
+            result.put("livreurNames", livreurNames);
+            result.put("chefNames", chefNames);
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch all commandes", e);
         }
     }
 

@@ -24,7 +24,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title> Dashboard Livreur</title>
+  <title>Delivery - Dashboard</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="admin/vendors/feather/feather.css">
   <link rel="stylesheet" href="admin/vendors/ti-icons/css/themify-icons.css">

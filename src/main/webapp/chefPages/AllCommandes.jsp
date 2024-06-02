@@ -75,7 +75,7 @@ if (!isAuthenticated) {
 
 
 
-<title>All Orders</title>
+<title>Chef - All Orders</title>
 
 
 

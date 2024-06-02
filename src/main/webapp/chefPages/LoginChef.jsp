@@ -1,6 +1,6 @@
 <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
 
-<%-- <%
+<%
     boolean isAuthenticated = false;
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
@@ -14,15 +14,15 @@
 
     // Redirect to the dashboard if already authenticated
     if (isAuthenticated) {
-        response.sendRedirect("../chefPages/Home.jsp"); // Update this with the path to your dashboard page
+        response.sendRedirect("../commande?action=chefcommandes"); // Update this with the path to your dashboard page
         return; // Stop further execution of JSP to ensure redirection happens immediately
     }
-%> --%>
+%>
 
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Inscription</title>
+    <title>Chef - Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">

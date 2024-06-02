@@ -103,4 +103,15 @@ public Chef authenticate(String email, String motDePasse) {
             throw new RuntimeException("Failed to fetch all users", e);
         }
     }
+    
+    public String findNomById(int id) {
+        try (Session session = openSession()) {
+            Chef chef = session.get(Chef.class, id);
+            return chef != null ? chef.getNom() : null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to find Chef with ID: " + id, e);
+        }
+    }
+
 }

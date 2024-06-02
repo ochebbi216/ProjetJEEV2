@@ -6,9 +6,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet("/pizza")
 public class PizzaController extends HttpServlet {
@@ -18,55 +16,58 @@ public class PizzaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action != null && action.equals("edit")) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            Pizza pizza = pizzaDao.find(id);
-            request.setAttribute("pizza", pizza);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/EditPizza.jsp");
-            dispatcher.forward(request, response);
-        }if(action != null && action.equals("detail")) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            Pizza pizza = pizzaDao.find(id);
-            request.setAttribute("pizza", pizza);
-            // Fetch other pizzas from the same category
-            List<Pizza> relatedPizzas = pizzaDao.findByCategoryExcluding(pizza.getCategorie(), pizza.getId());
-            request.setAttribute("relatedPizzas", relatedPizzas);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/DetailPizza.jsp");
-            dispatcher.forward(request, response);
-        }
-        if (action != null && action.equals("pizzachef")) {
-            List<Pizza> pizzas2 = pizzaDao.findAll();
-                 request.setAttribute("pizzas", pizzas2);
-                 RequestDispatcher dispatcher = request.getRequestDispatcher("/chefPages/AllPizza.jsp");
-                 dispatcher.forward(request, response);
-        }
-        if(action != null && action.equals("menu")) {
-            
-            request.setAttribute("classicPizzas", pizzaDao.findByCategory("Classic"));
-            request.setAttribute("meatLoversPizzas", pizzaDao.findByCategory("Meat Lovers"));
-            request.setAttribute("vegetarianPizzas", pizzaDao.findByCategory("Vegetarian"));
-            request.setAttribute("gourmetPizzas", pizzaDao.findByCategory("Gourmet"));
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/userPages/Menu.jsp");
-            dispatcher.forward(request, response);
-        }
-        if(action != null && action.equals("livreurPizza")) {
+        String destination = null;
+        
+        if (action != null) {
+            switch (action) {
+                case "edit":
+                    int editId = Integer.parseInt(request.getParameter("id"));
+                    Pizza editPizza = pizzaDao.find(editId);
+                    request.setAttribute("pizza", editPizza);
+                    destination = "/adminPages/EditPizza.jsp";
+                    break;
+                case "detail":
+                    int detailId = Integer.parseInt(request.getParameter("id"));
+                    Pizza detailPizza = pizzaDao.find(detailId);
+                    request.setAttribute("pizza", detailPizza);
+                    List<Pizza> relatedPizzas = pizzaDao.findByCategoryExcluding(detailPizza.getCategorie(), detailPizza.getId());
+                    request.setAttribute("relatedPizzas", relatedPizzas);
+                    destination = "/userPages/DetailPizza.jsp";
+                    break;
+                case "pizzachef":
+                    List<Pizza> chefPizzas = pizzaDao.findAll();
+                    request.setAttribute("pizzas", chefPizzas);
+                    destination = "/chefPages/AllPizza.jsp";
+                    break;
+                case "menu":
+                    request.setAttribute("classicPizzas", pizzaDao.findByCategory("Classic"));
+                    request.setAttribute("meatLoversPizzas", pizzaDao.findByCategory("Meat Lovers"));
+                    request.setAttribute("vegetarianPizzas", pizzaDao.findByCategory("Vegetarian"));
+                    request.setAttribute("gourmetPizzas", pizzaDao.findByCategory("Gourmet"));
+                    destination = "/userPages/Menu.jsp";
+                    break;
+                case "livreurPizza":
+                    List<Pizza> livreurPizzas = pizzaDao.findAll();
+                    request.setAttribute("pizzas", livreurPizzas);
+                    destination = "livreurPages/AllPizza.jsp";
+                    break;
+                default:
+                    List<Pizza> defaultPizzas = pizzaDao.findAll();
+                    request.setAttribute("pizzas", defaultPizzas);
+                    destination = "/adminPages/AllPizza.jsp";
+                    break;
+            }
+        } else {
             List<Pizza> pizzas = pizzaDao.findAll();
             request.setAttribute("pizzas", pizzas);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("livreurPages/AllPizza.jsp");
+            destination = "/adminPages/AllPizza.jsp";
+        }
+
+        if (destination != null && !response.isCommitted()) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(destination);
             dispatcher.forward(request, response);
         }
-
-        else {
-            List<Pizza> pizzas = pizzaDao.findAll();
-            request.setAttribute("pizzas", pizzas);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/AllPizza.jsp");
-            dispatcher.forward(request, response);
-        }
-
-        }
-
-   
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -90,7 +91,7 @@ public class PizzaController extends HttpServlet {
         float prixBase = Float.parseFloat(request.getParameter("prixBase"));
         String image = request.getParameter("image");
 
-        Pizza pizza = new Pizza(nom, categorie, taille, description, prixBase, image );
+        Pizza pizza = new Pizza(nom, categorie, taille, description, prixBase, image);
         pizzaDao.save(pizza);
         response.sendRedirect("pizza");
     }
@@ -132,4 +133,3 @@ public class PizzaController extends HttpServlet {
         }
     }
 }
-

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -113,7 +114,19 @@ public class CommandeController extends HttpServlet {
 				dispatcher.forward(request, response);
 
 				break;
+			case "admincommandes":
 
+			      Map<String, Object> data = commandeDao.findAllWithNames();
+
+			        request.setAttribute("commandes", data.get("commandes"));
+			        request.setAttribute("livreurNames", data.get("livreurNames"));
+			        request.setAttribute("chefNames", data.get("chefNames"));
+
+			        RequestDispatcher dispatcher00 = request.getRequestDispatcher("/adminPages/AllCommande.jsp");
+			        dispatcher00.forward(request, response);
+
+				break;
+				
 			case "livreurcommandes":
 
 				List<Commande> commandes2 = commandeDao.findCommandesByLivreurId(livreurId);
@@ -155,7 +168,6 @@ public class CommandeController extends HttpServlet {
 				int commandeId = Integer.parseInt(request.getParameter("id"));
 				int chefId = Integer.parseInt(request.getParameter("chefId"));
 				Commande commande0 = commandeDao.find(commandeId);
-				if (commande0 != null) {
 					commande0.setChefid(chefId);
 					commande0.setStatut("en cour");
 					commandeDao.update(commande0);
@@ -165,10 +177,6 @@ public class CommandeController extends HttpServlet {
 
 					RequestDispatcher dispatcher0 = request.getRequestDispatcher("/chefPages/MyCommandes.jsp");
 					dispatcher0.forward(request, response);
-
-				} else {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND, "Commande not found");
-				}
 				break;
 			case "finishOrder":
 				int commandeId0 = Integer.parseInt(request.getParameter("id"));
@@ -179,11 +187,11 @@ public class CommandeController extends HttpServlet {
 					commande4.setStatut("prête");
 					commandeDao.update(commande4);
 
-					List<Commande> commandes0 = commandeDao.findAssignedCommandes(chefid);
-					request.setAttribute("commandes", commandes0);
+					List<Commande> commandes00 = commandeDao.findAssignedCommandes(chefid);
+					request.setAttribute("commandes", commandes00);
 
-					RequestDispatcher dispatcher0 = request.getRequestDispatcher("/chefPages/MyCommandes.jsp");
-					dispatcher0.forward(request, response);
+					RequestDispatcher dispatcher01 = request.getRequestDispatcher("/chefPages/MyCommandes.jsp");
+					dispatcher01.forward(request, response);
 				} else {
 					response.sendError(HttpServletResponse.SC_NOT_FOUND, "Commande not found");
 				}

@@ -12,6 +12,8 @@ if (cookies != null) {
     }
 }
 %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -66,36 +68,39 @@ if (cookies != null) {
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="dashboard">
-              <i class="icon-grid menu-icon"></i>
+              <i class="fas fa-tachometer-alt menu-icon"></i>
               <span class="menu-title">Dashboard</span>
-              
             </a>
           </li>
-			<li class="nav-item">
-			    <a class="nav-link" href="User">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">All Clients</span>
-			    </a>
-			</li>
-			
-				<li class="nav-item">
-			    <a class="nav-link" href="chef">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">All Chefs</span>
-			    </a>
-			</li>
-				<li class="nav-item">
-			    <a class="nav-link" href="pizza">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">All Pizzas</span>
-			    </a>
-			</li>
-         		<li class="nav-item">
-			    <a class="nav-link" href="livreur">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">All Delivery Persons</span>
-			    </a>
-			</li>
-         
+          <li class="nav-item">
+            <a class="nav-link" href="commande?action=admincommandes">
+              <i class="fas fa-receipt menu-icon"></i>
+              <span class="menu-title">All Orders</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="User">
+              <i class="fas fa-users menu-icon"></i>
+              <span class="menu-title">All Clients</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chef">
+              <i class="fas fa-user-tie menu-icon"></i>
+              <span class="menu-title">All Chefs</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pizza">
+              <i class="fas fa-pizza-slice menu-icon"></i>
+              <span class="menu-title">All Pizzas</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="livreur">
+              <i class="fas fa-motorcycle menu-icon"></i>
+              <span class="menu-title">All Delivery Persons</span>
+            </a>
+          </li>
         </ul>
       </nav>

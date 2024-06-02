@@ -109,7 +109,7 @@ if (!isAuthenticated) {
                                                 <c:choose>
                                                     <c:when test="${relatedPizza.discountPercentage > 0}">
                                                         <c:set var="relatedDiscountedPrice" value="${relatedPizza.prixBase - (relatedPizza.prixBase * relatedPizza.discountPercentage / 100)}" />
-                                                        <span class="original-price">${relatedPizza.prixBase} DT</span>
+                                                        <span class="original-price" style="text-decoration: line-through;">${relatedPizza.prixBase} DT</span>
                                                         <span class="discounted-price">${String.format('%.2f', relatedDiscountedPrice)} DT</span>
                                                     </c:when>
                                                     <c:otherwise>

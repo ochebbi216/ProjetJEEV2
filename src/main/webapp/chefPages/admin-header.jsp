@@ -36,6 +36,7 @@ if (cookies2 != null) {
 }
 
 %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 
@@ -135,58 +136,31 @@ if (cookies2 != null) {
 
       <!-- partial:partials/_sidebar.html -->
 
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-
-        <ul class="nav">
-
-
-
-			<li class="nav-item">
-
-			    <a class="nav-link" href="commande?action=chefcommandes">
-
-			        <i class="icon-layout menu-icon"></i>
-
-			        <span class="menu-title">Waiting Orders</span>
-			        <span id="cart-count"
-						class="badge bg-info text-white rounded-pill"> <%=totalOrders%></span>
-			        
-
-			    </a>
-
-			</li>
-			
-			<li class="nav-item">
-
-			    <a class="nav-link" href="commande?action=myOrders&chefId=<%=chefIdValue%>">
-
-			        <i class="icon-layout menu-icon"></i>
-
-			        <span class="menu-title">My Orders</span>
-<%-- 			        <span id="cart-count"
-						class="badge bg-info text-white rounded-pill"> <%=totalOrders%></span> --%>
-			        
-
-			    </a>
-
-			</li>
-			
-
-				<li class="nav-item">
-
-			    <a class="nav-link" href="pizza?action=pizzachef">
-
-			        <i class="icon-layout menu-icon"></i>
-
-			        <span class="menu-title">All Pizzas</span>
-
-			    </a>
-
-			</li>
-
-         
-
-        </ul>
-
-      </nav>
-
+     <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <!-- Waiting Orders Link -->
+        <li class="nav-item">
+            <a class="nav-link" href="commande?action=chefcommandes">
+                <i class="fas fa-hourglass-half menu-icon"></i>
+                <span class="menu-title">Waiting Orders</span>
+                <span id="cart-count" class="badge bg-info text-white rounded-pill"><%= totalOrders %></span>
+            </a>
+        </li>
+        
+        <!-- My Orders Link -->
+        <li class="nav-item">
+            <a class="nav-link" href="commande?action=myOrders&chefId=<%= chefIdValue %>">
+                <i class="fas fa-list-alt menu-icon"></i>
+                <span class="menu-title">My Orders</span>
+            </a>
+        </li>
+        
+        <!-- All Pizzas Link -->
+        <li class="nav-item">
+            <a class="nav-link" href="pizza?action=pizzachef">
+                <i class="fas fa-pizza-slice menu-icon"></i>
+                <span class="menu-title">All Pizzas</span>
+            </a>
+        </li>
+    </ul>
+</nav>

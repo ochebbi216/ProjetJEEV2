@@ -46,33 +46,22 @@ if (!isAuthenticated) {
 <link href="assets/css/main.css" rel="stylesheet">
 <style>
 @keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-        background-color: blue;
-    }
-    25% {
-        background-position: 50% 50%;
-        background-color: red;
-    }
-    50% {
-        background-position: 100% 50%;
-        background-color: blue;
-    }
-    75% {
-        background-position: 50% 50%;
-        background-color: red;
-    }
-    100% {
-        background-position: 0% 50%;
-        background-color: blue;
-    }
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .discount-label {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: linear-gradient(to right, blue, red);
+    background: linear-gradient(-45deg, blue, red);
     background-size: 200% 200%;
     color: white;
     padding: 5px;
@@ -189,7 +178,7 @@ if (!isAuthenticated) {
                                         </c:if>
                                         <h4>${p3.nom}</h4>
                                         <p style="color: gray;">${fn:substring(p3.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}</p>
-                                                                                <p class="text-danger">
+                                          <p class="text-danger">
                                             <b>
                                                 <c:choose>
                                                     <c:when test="${p3.discountPercentage > 0}"> Only 

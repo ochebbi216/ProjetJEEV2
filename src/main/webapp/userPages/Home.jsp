@@ -25,7 +25,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Yummy Bootstrap Template - Index</title>
+  <title>Pizza Shop</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -457,7 +457,7 @@
               <i class="icon bi bi-envelope flex-shrink-0"></i>
               <div>
                 <h3>Email Us</h3>
-                <p>Ymmypizza@example.com</p>
+                <p>Ymmypizza@Ymmypizza.tn</p>
               </div>
             </div>
           </div><!-- End Info Item -->

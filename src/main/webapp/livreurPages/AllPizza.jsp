@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
 <%
     boolean isAuthenticated = false;
@@ -23,10 +24,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Pizzas</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title> Admin</title>
+    <title>Delivery - All Pizzas</title>
   <!-- plugins:css -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   
@@ -99,7 +97,7 @@
                         <td><c:out value="${pizza.nom}"/></td>
                         <td><c:out value="${pizza.categorie}"/></td>
                         <td><c:out value="${pizza.taille}"/></td>
-                        <td><c:out value="${pizza.description}"/></td>
+                        <td><c:out value="${fn:substring(pizza.description, 0, 15)}${fn:length(pizza.description) > 15 ? '...' : ''}"/></td>
                         <td><c:out value="${pizza.prixBase}"/> DT</td>
                         <td><img src="${pizza.image}" alt="Pizza Image"/></td>
 <%--                         <td>

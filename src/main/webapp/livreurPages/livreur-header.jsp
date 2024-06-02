@@ -12,6 +12,7 @@ if (cookies != null) {
     }
 }
 %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -63,28 +64,29 @@ if (cookies != null) {
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-        
-          <li class="nav-item">
+    <ul class="nav">
+        <!-- Dashboard Link -->
+        <li class="nav-item">
             <a class="nav-link" href="dashboardLivreur">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+                <i class="fas fa-tachometer-alt menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
             </a>
-          </li>
-          
-		  <li class="nav-item">
-			    <a class="nav-link" href="pizza?action=livreurPizza">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">All Pizzas</span>
-			    </a>
-			</li>
-			
-         	<li class="nav-item">
-			    <a class="nav-link" href="commande?action=livreurcommandes">
-			        <i class="icon-layout menu-icon"></i>
-			        <span class="menu-title">My Commandes</span>
-			    </a>
-			</li>
-         
-        </ul>
-      </nav>
+        </li>
+        
+        <!-- All Pizzas Link -->
+        <li class="nav-item">
+            <a class="nav-link" href="pizza?action=livreurPizza">
+                <i class="fas fa-pizza-slice menu-icon"></i>
+                <span class="menu-title">All Pizzas</span>
+            </a>
+        </li>
+        
+        <!-- My Commandes Link -->
+        <li class="nav-item">
+            <a class="nav-link" href="commande?action=livreurcommandes">
+                <i class="fas fa-receipt menu-icon"></i>
+                <span class="menu-title">My Commandes</span>
+            </a>
+        </li>
+    </ul>
+</nav>

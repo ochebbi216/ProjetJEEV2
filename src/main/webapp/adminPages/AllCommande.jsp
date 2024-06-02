@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
 <%
@@ -24,7 +26,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - All Customers</title>
+  <title> Admin-Orders</title>
   <!-- plugins:css -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   
@@ -71,34 +73,54 @@
 </head>
 <body>
   <div class="container-scroller">
+
      <jsp:include page="admin-header.jsp"/>
       <div class="main-panel">
         <div class="content-wrapper">
 
-        <h1 class="header">List of Available Customers</h1>
-        <a href="/projetjsp1/AddUser.jsp" class="btn btn-success"><i class="fas fa-add"></i> Add New User</a>
+        <h1 class="header">List of orders</h1>
         
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="user" items="${Users}">
-                    <tr>
-                        <td><c:out value="${user.nom}"/></td>
-                        <td><c:out value="${user.prenom}"/></td>
-                        <td>
-                            <a href="User?action=edit&id=${user.id}" class="btn " style="color:blue;"><i class="fas fa-edit"></i> </a>
-                            <button onclick="deleteUser(${user.id});" class="btn " style="color:red;"><i class="fas fa-trash-alt"></i> </button>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
+       <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Pizzas</th>
+              <th scope="col">Status</th>
+              <th scope="col">Commande Date</th>
+              <th scope="col">Delivery Address</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Total Price</th>
+              <th scope="col">Livreur Name</th>
+              <th scope="col">Chef Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach var="commande" items="${commandes}">
+              <tr>
+                <td>
+                  <ul>
+                    <c:forEach var="pizzaId" items="${fn:split(commande.pizzas, ',')}">
+                      <li> ${pizzaId}</li>
+                    </c:forEach>
+                    <c:if test="${empty commande.pizzas}">
+                      <li>No pizzas listed</li>
+                    </c:if>
+                  </ul>
+                </td>
+                <td>${commande.statut}</td>
+                <td><fmt:formatDate value="${commande.dateCommande}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                <td>${commande.adresseLivraison}</td>
+                <td>${commande.numTel}</td>
+                <td>${commande.prixTotal} DT</td>
+                <td><c:out value="${livreurNames[commande.livreurid]}"/></td>
+                <td><c:out value="${chefNames[commande.chefid]}"/></td>
+              </tr>
+            </c:forEach>
+          </tbody>
         </table>
+
+
+<!--         <a href="/projetjsp1/AddPizza.jsp" class="btn btn-success">Add New Pizza</a>
+ -->
     </div>
    
          <jsp:include page="admin-footer.jsp"/>
@@ -110,13 +132,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        function deleteUser(id) {
-            if (confirm('Are you sure you want to delete this user?')) {
+    <!-- <script type="text/javascript">
+        function deletePizza(pizzaId) {
+            if (confirm('Are you sure you want to delete this order?')) {
                 var form = document.createElement('form');
                 document.body.appendChild(form);
                 form.method = 'post';
-                form.action = 'User';
+                form.action = 'commande';
 
                 var actionInput = document.createElement('input');
                 actionInput.type = 'hidden';
@@ -127,12 +149,12 @@
                 var idInput = document.createElement('input');
                 idInput.type = 'hidden';
                 idInput.name = 'id';
-                idInput.value = id;
+                idInput.value = pizzaId;
                 form.appendChild(idInput);
 
                 form.submit();
             }
         }
-    </script>
+    </script> -->
 </body>
 </html>
