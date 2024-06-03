@@ -4,14 +4,14 @@
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie cookie : cookies) {
-            if ("userEmail".equals(cookie.getName()) && cookie.getValue() != null && !cookie.getValue().isEmpty()) {
+            if ("livreurName".equals(cookie.getName()) ) {
                 isAuthenticated = true;
                 break;
             }
         }
     }
 
-    // Redirect to the dashboard if already authenticated
+     // Redirect to the dashboard if already authenticated
     if (isAuthenticated) {
         response.sendRedirect("../dashboardLivreur"); // Update this with the path to your dashboard page
         return; // Stop further execution of JSP to ensure redirection happens immediately

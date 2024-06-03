@@ -76,13 +76,14 @@
         <div class="content-wrapper">
 
         <h1 class="header">List of Available Customers</h1>
-        <a href="/projetjsp1/AddUser.jsp" class="btn btn-success"><i class="fas fa-add"></i> Add New User</a>
+        <a href="/projetjsp1/adminPages/AddUser.jsp" class="btn btn-success"><i class="fas fa-add"></i> Add New User</a>
         
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>Nom</th>
-                    <th>Prenom</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -91,6 +92,8 @@
                     <tr>
                         <td><c:out value="${user.nom}"/></td>
                         <td><c:out value="${user.prenom}"/></td>
+                        <td><c:out value="${user.login}"/></td>
+                        
                         <td>
                             <a href="User?action=edit&id=${user.id}" class="btn " style="color:blue;"><i class="fas fa-edit"></i> </a>
                             <button onclick="deleteUser(${user.id});" class="btn " style="color:red;"><i class="fas fa-trash-alt"></i> </button>

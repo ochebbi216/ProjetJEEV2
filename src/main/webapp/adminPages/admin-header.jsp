@@ -80,8 +80,8 @@ if (cookies != null) {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="User">
-              <i class="fas fa-users menu-icon"></i>
-              <span class="menu-title">All Clients</span>
+              <i class="fas fa-users menu-icon">
+              </i><span class="menu-title">All Clients</span>
             </a>
           </li>
           <li class="nav-item">

@@ -20,16 +20,19 @@ public class LivreurController extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action != null) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            Livreur livreur = livreurDao.find(id);
-            request.setAttribute("Livreur", livreur);
             if (action.equals("edit")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Livreur livreur = livreurDao.find(id);
+                request.setAttribute("Livreur", livreur);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/EditLivreur.jsp");
                 dispatcher.forward(request, response);
             } else if (action.equals("detail")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Livreur livreur = livreurDao.find(id);
+                request.setAttribute("Livreur", livreur);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/adminPages/DetailLivreur.jsp");
                 dispatcher.forward(request, response);
-            }else if(action != null && action.equals("logout")) {
+            }if(action.equals("logout")) {
                 logoutLivreur(request, response);
             }
         } else {

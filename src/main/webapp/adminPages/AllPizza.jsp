@@ -89,7 +89,7 @@
             <th>Taille</th>
             <th>Description</th>
             <th>Base Price</th>
-            <th>Discount Percentage</th>
+            <th>Discount %</th>
             <th>Discounted Price</th>
             <th>Image</th>
             <th>Actions</th>

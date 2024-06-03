@@ -5,9 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%
-// Authenticate User and Get User ID from Cookies
 boolean isAuthenticated = false;
-int userId = -1; // Initialize with an invalid userId
+int userId = -1; 
 Cookie[] cookies = request.getCookies();
 if (cookies != null) {
 	for (Cookie cookie : cookies) {
@@ -20,7 +19,7 @@ if (cookies != null) {
 }
 
 if (!isAuthenticated || userId == -1) {
-	response.sendRedirect("userPages/LoginUser.jsp"); // Redirect to the login page if not authenticated
+	response.sendRedirect("userPages/LoginUser.jsp"); 
 	return;
 }
 request.setAttribute("userId", userId);
@@ -43,6 +42,37 @@ request.setAttribute("userId", userId);
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 	rel="stylesheet">
+	<style>
+    .badge-en-attente {
+        background-color: #ffc107; /* Yellow */
+        color: white;
+        font-size: 15px;
+        
+    }
+    .badge-en-cour {
+        background-color: #17a2b8; /* Blue */
+        color: white;
+        font-size: 15px;
+        
+    }
+    .badge-prete {
+        background-color: #6c757d; /* Gray */
+        color: white;
+        font-size: 15px;
+    }
+    .badge-en-cours-de-livraison {
+        background-color: #fd7e14; /* Orange */
+        color: white;
+        font-size: 15px;
+
+    }
+    .badge-commande-livree {
+        background-color:  #28a745; /* Green */ 
+        color: white;
+        font-size: 15px;
+
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="client-header.jsp" />
@@ -57,7 +87,7 @@ request.setAttribute("userId", userId);
 			<h1 class="header text-center">List of Orders</h1>
 			        <div class="table-responsive">
 			
-			<table class="table table-striped table-bordered">
+			<table class="table table-bordered text-center">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">Pizza x Quantity</th>
@@ -91,7 +121,17 @@ request.setAttribute("userId", userId);
 												</c:if>
 											</ul>
 										</td>
-										<td>${commande.statut}</td>
+										<td>
+												<span class="badge text-white rounded-pill 
+													<c:choose>
+														<c:when test="${commande.statut == 'en attente'}">badge-en-attente</c:when>
+														<c:when test="${commande.statut == 'en cour'}">badge-en-cour</c:when>
+														<c:when test="${commande.statut == 'prête'}">badge-prete</c:when>
+														<c:when test="${commande.statut == 'en cours de livraison'}">badge-en-cours-de-livraison</c:when>
+														<c:when test="${commande.statut == 'commande livrée'}">badge-commande-livree</c:when>
+													</c:choose>">${commande.statut}
+												</span>
+										</td>
 										<td><fmt:formatDate value="${commande.dateCommande}"
 												pattern="yyyy-MM-dd HH:mm" /></td>
 										<td>${commande.prixTotal}DT</td>

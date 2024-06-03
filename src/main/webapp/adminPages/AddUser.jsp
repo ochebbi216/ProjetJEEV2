@@ -1,4 +1,6 @@
-<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest" %>
 <%
     boolean isAuthenticated = false;
     Cookie[] cookies = request.getCookies();
@@ -11,13 +13,10 @@
         }
     }
 
-    // Redirect to the dashboard if already authenticated
-    if (isAuthenticated) {
-        response.sendRedirect("../dashboard"); // Update this with the path to your dashboard page
-        return; // Stop further execution of JSP to ensure redirection happens immediately
+    if (!isAuthenticated) {
+        response.sendRedirect("adminPages/AddAdmin.jsp");  // Redirect to the login page if not authenticated
+        return;
     }
-
-
 %>
 <!doctype html>
 <html lang="en">
@@ -27,9 +26,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="img js-fullheight" style="background-image: url(images/bg3.jpg);">
+<body class="img js-fullheight" style="background-image: url(../images/bg3.jpg);">
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -64,9 +63,9 @@
         </div>
     </div>
 </section>
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/popper.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/main.js"></script>
 </body>
 </html>

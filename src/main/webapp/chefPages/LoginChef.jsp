@@ -1,5 +1,4 @@
 <%@ page import="jakarta.servlet.http.Cookie, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse" %>
-
 <%
     boolean isAuthenticated = false;
     Cookie[] cookies = request.getCookies();
